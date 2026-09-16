@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Basics · tree-element example</title>
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">tree-element example</a></h1>
+      <nav>
+        <a href="/" aria-current="page">Basics</a>
+        <a href="/drag-and-drop.html" >Drag and drop</a>
+        <a href="/load-on-demand.html" >Load on demand</a>
+        <a href="/save-state.html" >Save state</a>
+        <a href="/styling.html" >Styling</a>
+      </nav>
+    </header>
+    <main>
+      <p>
+        A tree from a javascript array, with the events it dispatches and the
+        methods that change it. Click a node to select it, use the arrow keys
+        to move around, and right-click a node for a menu.
+      </p>
+      <div class="layout">
+        <section class="panel">
+          <h2>Tree</h2>
+          <div id="tree" class="tree"></div>
+        </section>
+        <div>
+          <section class="panel">
+            <h2>Methods</h2>
+            <div class="toolbar">
+              <button id="add-child">Add child</button>
+              <button id="add-after">Add sibling</button>
+              <button id="rename">Rename</button>
+              <button id="remove">Remove</button>
+              <button id="toggle">Toggle</button>
+            </div>
+            <div class="toolbar">
+              <label>Select id <input id="select-id" type="number" value="15" /></label>
+              <button id="select">Select</button>
+              <button id="to-json">Show json</button>
+            </div>
+            <pre id="output" class="output">Select a node, then use the buttons.</pre>
+          </section>
+          <section class="panel" style="margin-top: 16px">
+            <h2>Events</h2>
+            <div id="log" class="log"></div>
+          </section>
+        </div>
+      </div>
+    </main>
+    <ul id="context-menu" class="context-menu" hidden>
+      <li><button data-action="add-child">Add child</button></li>
+      <li><button data-action="rename">Rename</button></li>
+      <li><button data-action="remove">Remove</button></li>
+    </ul>
+    <script type="module" src="/src/pages/basics.ts"></script>
+  </body>
+</html>

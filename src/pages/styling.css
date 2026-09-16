@@ -1,0 +1,84 @@
+/* Overrides for the default stylesheet. Every selector in tree_element.css is
+   nested under ul.tree-element, so these need the same specificity. */
+
+.fancy ul.tree-element {
+  font-size: 15px;
+}
+
+/* Wider indentation. */
+.fancy ul.tree-element ul.tree-element-common {
+  margin-left: 22px;
+  border-left: 1px solid #e3e8ed;
+}
+
+.fancy ul.tree-element.tree-element-rtl ul.tree-element-common {
+  margin-left: 0;
+  margin-right: 22px;
+  border-left: 0;
+  border-right: 1px solid #e3e8ed;
+}
+
+/* Rows with a hover color and rounded corners. */
+.fancy ul.tree-element .tree-element-element {
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.fancy ul.tree-element .tree-element-element:hover {
+  background: #f1f5f8;
+}
+
+/* The selection color is a gradient by default. */
+.fancy ul.tree-element li.tree-element-selected > .tree-element-element,
+.fancy ul.tree-element li.tree-element-selected > .tree-element-element:hover {
+  background: #1c4257;
+  text-shadow: none;
+}
+
+.fancy ul.tree-element li.tree-element-selected > .tree-element-element .tree-element-title {
+  color: #fff;
+}
+
+/* The togglers hold an inline svg, see styling.ts. */
+.fancy ul.tree-element .tree-element-toggler {
+  display: inline-flex;
+  color: #6b7a88;
+}
+
+.fancy ul.tree-element .tree-element-toggler .chevron,
+.fancy ul.tree-element .tree-element-toggler svg {
+  display: block;
+}
+
+.fancy ul.tree-element .tree-element-toggler-left {
+  margin-right: 0;
+}
+
+.fancy ul.tree-element .tree-element-title {
+  color: #1f2933;
+}
+
+.fancy ul.tree-element .tree-element-title-folder {
+  font-weight: 600;
+}
+
+/* Elements added by onCreateLi. */
+.fancy .count {
+  font-size: 11px;
+  line-height: 1;
+  padding: 3px 6px;
+  border-radius: 999px;
+  background: #e3e8ed;
+  color: #3e4c59;
+}
+
+.fancy .note {
+  font-size: 13px;
+  color: #6b7a88;
+}
+
+.fancy li.tree-element-selected > .tree-element-element .note {
+  color: #cfd8e0;
+}

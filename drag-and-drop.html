@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Drag and drop · tree-element example</title>
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">tree-element example</a></h1>
+      <nav>
+        <a href="/" >Basics</a>
+        <a href="/drag-and-drop.html" aria-current="page">Drag and drop</a>
+        <a href="/load-on-demand.html" >Load on demand</a>
+        <a href="/save-state.html" >Save state</a>
+        <a href="/styling.html" >Styling</a>
+      </nav>
+    </header>
+    <main>
+      <p>
+        Hold a node for a moment and drag it onto a folder, or between two
+        nodes. The two top-level groups stay where they are: they cannot be
+        dragged, and nothing can be dropped next to them.
+      </p>
+      <div class="layout">
+        <section class="panel">
+          <h2>Tree</h2>
+          <div id="tree" class="tree"></div>
+        </section>
+        <div>
+          <section class="panel">
+            <h2>Options</h2>
+            <div class="toolbar">
+              <label><input id="confirm" type="checkbox" /> Ask before applying a move</label>
+            </div>
+            <div id="confirm-bar" class="notice" hidden>
+              <span id="confirm-text"></span>
+              <div class="toolbar" style="margin: 8px 0 0">
+                <button id="confirm-yes">Move</button>
+                <button id="confirm-no">Cancel</button>
+              </div>
+            </div>
+            <div class="toolbar">
+              <button id="move-from-code">Move Avialans into Ornithopods</button>
+              <button id="reset">Reset</button>
+            </div>
+          </section>
+          <section class="panel" style="margin-top: 16px">
+            <h2>Events</h2>
+            <div id="log" class="log"></div>
+          </section>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="/src/pages/dragAndDrop.ts"></script>
+  </body>
+</html>

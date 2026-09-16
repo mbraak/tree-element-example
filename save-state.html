@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Save state · tree-element example</title>
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">tree-element example</a></h1>
+      <nav>
+        <a href="/" >Basics</a>
+        <a href="/drag-and-drop.html" >Drag and drop</a>
+        <a href="/load-on-demand.html" >Load on demand</a>
+        <a href="/save-state.html" aria-current="page">Save state</a>
+        <a href="/styling.html" >Styling</a>
+      </nav>
+    </header>
+    <main>
+      <p>
+        Open some folders and select a node, then reload the page: the tree
+        comes back the way you left it. The state is kept in
+        <code>localStorage</code> under the key
+        <code>tree-element-example</code>.
+      </p>
+      <div class="layout">
+        <section class="panel">
+          <h2>Tree</h2>
+          <div id="tree" class="tree"></div>
+        </section>
+        <div>
+          <section class="panel">
+            <h2>State</h2>
+            <div class="toolbar">
+              <button id="apply">Apply a fixed state</button>
+              <button id="clear">Clear and reload</button>
+            </div>
+            <h2 style="margin-top: 16px">getState()</h2>
+            <pre id="current" class="output" style="height: 90px"></pre>
+            <h2 style="margin-top: 16px">localStorage</h2>
+            <pre id="stored" class="output" style="height: 90px"></pre>
+          </section>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="/src/pages/saveState.ts"></script>
+  </body>
+</html>

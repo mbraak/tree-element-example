@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Styling · tree-element example</title>
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">tree-element example</a></h1>
+      <nav>
+        <a href="/" >Basics</a>
+        <a href="/drag-and-drop.html" >Drag and drop</a>
+        <a href="/load-on-demand.html" >Load on demand</a>
+        <a href="/save-state.html" >Save state</a>
+        <a href="/styling.html" aria-current="page">Styling</a>
+      </nav>
+    </header>
+    <main>
+      <p>
+        Custom folder icons, extra markup per node from <code>onCreateLi</code>
+        and css that overrides the default stylesheet. The options below
+        recreate the tree, keeping its open and selected nodes.
+      </p>
+      <div class="layout">
+        <section class="panel">
+          <h2>Tree</h2>
+          <div id="tree" class="tree fancy"></div>
+        </section>
+        <section class="panel">
+          <h2>Options</h2>
+          <div class="toolbar" style="flex-direction: column; align-items: start">
+            <label><input id="rtl" type="checkbox" /> <code>rtl</code>: right to left</label>
+            <label><input id="button-right" type="checkbox" /> <code>buttonLeft: false</code>: toggler after the title</label>
+            <label><input id="no-slide" type="checkbox" /> <code>slide: false</code>: no animation</label>
+            <label><input id="show-notes" type="checkbox" checked /> Show notes and counts (<code>onCreateLi</code>)</label>
+          </div>
+        </section>
+      </div>
+    </main>
+    <script type="module" src="/src/pages/styling.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "tree-element-example",
+  "version": "1.0.0",
+  "description": "Example project for tree-element, a tree widget in plain javascript",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "tree-element": "^0.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.5.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0"
+  }
+}

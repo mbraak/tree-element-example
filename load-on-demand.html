@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Load on demand · tree-element example</title>
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">tree-element example</a></h1>
+      <nav>
+        <a href="/" >Basics</a>
+        <a href="/drag-and-drop.html" >Drag and drop</a>
+        <a href="/load-on-demand.html" aria-current="page">Load on demand</a>
+        <a href="/save-state.html" >Save state</a>
+        <a href="/styling.html" >Styling</a>
+      </nav>
+    </header>
+    <main>
+      <p>
+        Only the top level is fetched at first. Opening a folder fetches its
+        children from <code>/api/nodes?node=&lt;id&gt;</code>, which the dev
+        server answers from <code>vite.config.ts</code>. Watch the log, or the
+        network tab.
+      </p>
+      <div class="layout">
+        <section class="panel">
+          <h2>Tree</h2>
+          <div id="tree" class="tree"></div>
+        </section>
+        <div>
+          <section class="panel">
+            <h2>Methods</h2>
+            <div class="toolbar">
+              <button id="open-deep">Open Coelurosaurians</button>
+              <button id="reload">Reload</button>
+              <button id="fail">Load a url that fails</button>
+            </div>
+            <pre id="output" class="output"></pre>
+          </section>
+          <section class="panel" style="margin-top: 16px">
+            <h2>Events</h2>
+            <div id="log" class="log"></div>
+          </section>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="/src/pages/loadOnDemand.ts"></script>
+  </body>
+</html>
