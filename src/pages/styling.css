@@ -47,8 +47,7 @@
   color: #6b7a88;
 }
 
-.fancy ul.tree-element .tree-element-toggler .chevron,
-.fancy ul.tree-element .tree-element-toggler svg {
+.fancy ul.tree-element .tree-element-toggler .chevron {
   display: block;
 }
 

@@ -16,23 +16,19 @@ const showNotes = byId<HTMLInputElement>("show-notes");
 
 // ---- Icons -----------------------------------------------------------------
 //
-// closedIcon and openedIcon take a string or an element. A string is rendered
-// as text (an html entity like "&#x25bc;" works), so for markup such as an svg
-// pass an element; it is cloned for every folder. The default closed icon
-// flips in rtl mode; a custom one has to do that itself.
+// closedIcon and openedIcon take an html string or an element. The string is
+// parsed once and cloned for every folder, so inline svg can go straight in.
+// The default closed icon flips in rtl mode; a custom one has to do that
+// itself.
 
-const chevron = (direction: "down" | "left" | "right"): HTMLElement => {
+const chevron = (direction: "down" | "left" | "right"): string => {
   const path = {
     down: "M3 6l5 5 5-5",
     left: "M10 3L5 8l5 5",
     right: "M6 3l5 5-5 5",
   }[direction];
 
-  const icon = document.createElement("span");
-  icon.className = "chevron";
-  icon.innerHTML = `<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="${path}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-
-  return icon;
+  return `<svg class="chevron" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="${path}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 };
 
 // ---- Extra markup per node -------------------------------------------------
