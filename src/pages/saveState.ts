@@ -33,8 +33,8 @@ for (const name of ["tree.open", "tree.close", "tree.select", "tree.deselect"] a
 showState();
 
 byId("apply").addEventListener("click", () => {
-  // setState applies a state to the tree, but does not save it: compare the
-  // two panes. The next open, close or select saves the whole state.
+  // setState applies a state to the tree and, because saveState is enabled,
+  // saves it too: both panes show the new state.
   tree.setState({ open_nodes: [1, 3, 8], selected_node: [15] });
   showState();
 });
