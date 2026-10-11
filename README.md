@@ -3,7 +3,7 @@
 A small Vite project showing how to use
 [tree-element](https://github.com/mbraak/tree-element), a tree widget in plain
 javascript: loading data, events, the api, drag and drop, loading on demand,
-saving state and styling.
+saving state, styling and accessibility.
 
 Documentation for tree-element: <https://mbraak.github.io/tree-element/>
 
@@ -23,6 +23,7 @@ Then open <http://localhost:5173/>.
 | `/load-on-demand.html`  | Fetching the top level from a url and each folder when it is opened, with a loading indicator and a failing request |
 | `/save-state.html`      | `saveState`: the open and selected nodes survive a reload. `getState` and `setState`                       |
 | `/styling.html`         | Custom folder icons, extra markup per node with `onCreateLi`, css overrides, `rtl` and `buttonLeft`        |
+| `/accessibility.html`   | The aria roles and states the tree renders, the single tab stop, keyboard navigation, `tabIndex` and `keyboardSupport`, and a live region for changes made from code |
 
 `npm run check` type-checks the project. `npm run build` writes a static build to
 `dist/`, and `npm run preview` serves it.

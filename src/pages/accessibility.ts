@@ -1,0 +1,298 @@
+import TreeElement from "tree-element";
+import type { SavedState } from "tree-element";
+import "tree-element/tree_element.css";
+import "../style.css";
+import "./accessibility.css";
+
+import { dinosaurs } from "../data";
+import { byId } from "../dom";
+import { appendLine } from "../eventLog";
+
+const element = byId("tree");
+const announcements = byId("announcements");
+const noTabStop = byId<HTMLInputElement>("no-tab-stop");
+const noKeyboard = byId<HTMLInputElement>("no-keyboard");
+
+// ---- The markup ------------------------------------------------------------
+//
+// The tree renders the WAI-ARIA tree view pattern:
+//
+//   ul[role=tree]
+//     li[role=none] > div[role=none] > span[role=treeitem]
+//       aria-label, aria-level, aria-selected, aria-expanded (folders only),
+//       tabindex: 0 on the tab stop, -1 on the other nodes
+//     ul[role=group] for the children of a folder
+//
+// The `li` and `div` have role=none, so screen readers skip them and see the
+// title span as the treeitem.
+
+const treeItems = (): HTMLElement[] => [
+  ...element.querySelectorAll<HTMLElement>("[role=treeitem]"),
+];
+
+/** The treeitem of the folder that contains this treeitem, if any. */
+function parentItem(item: HTMLElement): HTMLElement | null {
+  const parentLi = item.closest("li")?.parentElement?.closest("li");
+
+  return parentLi?.querySelector(":scope > div > [role=treeitem]") ?? null;
+}
+
+/**
+ * Can a screen reader reach the item? The children of a closed folder can
+ * still be in the DOM, but they are hidden.
+ */
+function isExposed(item: HTMLElement): boolean {
+  for (let parent = parentItem(item); parent; parent = parentItem(parent)) {
+    if (parent.getAttribute("aria-expanded") !== "true") {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+// ---- Labelling the tree ----------------------------------------------------
+//
+// A tree needs an accessible name. The `ul[role=tree]` is created by the
+// widget, so point it at the heading above the tree. It is recreated when the
+// whole tree is rendered again, which the MutationObserver below catches.
+
+function labelTree(): void {
+  const root = element.querySelector("[role=tree]");
+
+  if (root && !root.hasAttribute("aria-labelledby")) {
+    root.setAttribute("aria-labelledby", "tree-heading");
+  }
+}
+
+// ---- Creating the tree -----------------------------------------------------
+
+function createTree(state: null | SavedState): TreeElement {
+  const tree = new TreeElement({
+    autoOpen: 0,
+    data: dinosaurs,
+    htmlElement: element,
+    // keyboardSupport and tabIndex are read in the constructor, so changing
+    // them means recreating the tree.
+    keyboardSupport: !noKeyboard.checked,
+    tabIndex: noTabStop.checked ? -1 : 0,
+  });
+
+  if (state) {
+    tree.setState(state);
+  }
+
+  return tree;
+}
+
+let tree = createTree(null);
+
+for (const checkbox of [noTabStop, noKeyboard]) {
+  checkbox.addEventListener("change", () => {
+    const state = tree.getState();
+
+    tree.deinit();
+    tree = createTree(state);
+  });
+}
+
+// ---- The focused node ------------------------------------------------------
+
+const spoken = byId("spoken");
+const attributes = byId<HTMLDListElement>("attributes");
+
+const shownAttributes = [
+  "role",
+  "aria-label",
+  "aria-level",
+  "aria-expanded",
+  "aria-selected",
+  "tabindex",
+];
+
+/**
+ * Roughly what a screen reader says for a treeitem. The position in the set
+ * ("2 of 5") is not an attribute: screen readers count the siblings in the
+ * group themselves.
+ */
+function describeItem(item: HTMLElement): string {
+  const li = item.closest("li");
+  const siblings = li?.parentElement ? [...li.parentElement.children] : [];
+  const expanded = item.getAttribute("aria-expanded");
+
+  return [
+    item.getAttribute("aria-label"),
+    "tree item",
+    expanded === null ? null : expanded === "true" ? "expanded" : "collapsed",
+    item.getAttribute("aria-selected") === "true" ? "selected" : null,
+    li ? `${siblings.indexOf(li) + 1} of ${siblings.length}` : null,
+    `level ${item.getAttribute("aria-level")}`,
+  ]
+    .filter(Boolean)
+    .join(", ");
+}
+
+function showFocusedNode(): void {
+  const item = document.activeElement;
+
+  attributes.replaceChildren();
+
+  if (!(item instanceof HTMLElement) || item.getAttribute("role") !== "treeitem") {
+    spoken.textContent = element.contains(item)
+      ? ""
+      : "The focus is not on the tree.";
+    return;
+  }
+
+  spoken.textContent = `“${describeItem(item)}”`;
+
+  for (const name of shownAttributes) {
+    const value = item.getAttribute(name);
+
+    if (value !== null) {
+      const dt = document.createElement("dt");
+      const dd = document.createElement("dd");
+      dt.textContent = name;
+      dd.textContent = value;
+      attributes.append(dt, dd);
+    }
+  }
+}
+
+document.addEventListener("focusin", showFocusedNode);
+document.addEventListener("focusout", () => {
+  // activeElement is the body during focusout; wait for the new element.
+  setTimeout(showFocusedNode);
+});
+
+// ---- The accessibility tree ------------------------------------------------
+
+const outline = byId<HTMLPreElement>("outline");
+
+function showOutline(): void {
+  const lines = treeItems()
+    .filter(isExposed)
+    .map((item) => {
+      const level = Number(item.getAttribute("aria-level"));
+      const expanded = item.getAttribute("aria-expanded");
+      const icon = expanded === null ? " " : expanded === "true" ? "▾" : "▸";
+
+      const line = document.createElement("div");
+      line.textContent = `${"  ".repeat(level - 1)}${icon} ${item.getAttribute("aria-label")}`;
+      line.classList.toggle("selected", item.getAttribute("aria-selected") === "true");
+
+      if (item.getAttribute("tabindex") === "0") {
+        const marker = document.createElement("span");
+        marker.className = "marker";
+        marker.textContent = "tab";
+        line.append(" ", marker);
+      }
+
+      return line;
+    });
+
+  outline.replaceChildren(...lines);
+}
+
+// Everything the panels show comes from the DOM, so watch the DOM instead of
+// the tree events. That also shows that the attributes are kept up to date.
+new MutationObserver(() => {
+  labelTree();
+  showOutline();
+  showFocusedNode();
+}).observe(element, {
+  attributeFilter: ["aria-expanded", "aria-selected", "tabindex"],
+  childList: true,
+  subtree: true,
+});
+
+labelTree();
+showOutline();
+
+// ---- Keyboard --------------------------------------------------------------
+
+const keyRows = document.querySelectorAll<HTMLTableRowElement>("tr[data-key]");
+
+element.addEventListener("keydown", (event) => {
+  for (const row of keyRows) {
+    row.classList.toggle("pressed", row.dataset.key === event.key);
+  }
+});
+
+element.addEventListener("keyup", () => {
+  for (const row of keyRows) {
+    row.classList.remove("pressed");
+  }
+});
+
+// ---- Announcements ---------------------------------------------------------
+//
+// When the focus is on the tree, a screen reader reads the focused node, so
+// keyboard navigation needs nothing extra. A change made from elsewhere, like
+// a button that selects a node without moving the focus, is silent. Announce
+// it in a live region: `role="log"` on the announcements element.
+
+const isFocusOnTree = (): boolean => element.contains(document.activeElement);
+
+const announce = (text: string): void => {
+  if (!isFocusOnTree()) {
+    appendLine(announcements, text);
+  }
+};
+
+element.addEventListener("tree.select", (event) => {
+  announce(`${event.detail.node.name} selected`);
+});
+
+element.addEventListener("tree.deselect", (event) => {
+  announce(`${event.detail.node.name} deselected`);
+});
+
+element.addEventListener("tree.open", (event) => {
+  announce(`${event.detail.node.name} expanded`);
+});
+
+element.addEventListener("tree.close", (event) => {
+  announce(`${event.detail.node.name} collapsed`);
+});
+
+// ---- From code -------------------------------------------------------------
+
+const tyrannosauroids = () => tree.getNodeById(9);
+
+byId("select-quiet").addEventListener("click", () => {
+  const node = tyrannosauroids();
+
+  if (node) {
+    // selectNode opens the parents. mustToggle: false keeps a second click
+    // from deselecting the node.
+    tree.selectNode(node, { mustSetFocus: false, mustToggle: false });
+  }
+});
+
+byId("select-focus").addEventListener("click", () => {
+  const node = tyrannosauroids();
+
+  if (node) {
+    tree.selectNode(node, { mustToggle: false });
+  }
+});
+
+byId("focus-tree").addEventListener("click", () => {
+  // The tab stop is the selected node, or the first node. With tabIndex: -1
+  // there is no tab stop, but the selected node can still take the focus.
+  const target =
+    element.querySelector<HTMLElement>("[role=treeitem][aria-selected=true]") ??
+    treeItems()[0];
+
+  target?.focus();
+});
+
+byId("deselect").addEventListener("click", () => {
+  const node = tree.getSelectedNode();
+
+  if (node) {
+    tree.selectNode(null);
+    announce(`${node.name} deselected`);
+  }
+});

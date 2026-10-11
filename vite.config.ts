@@ -61,6 +61,7 @@ export default defineConfig({
         "load-on-demand": page("load-on-demand"),
         "save-state": page("save-state"),
         styling: page("styling"),
+        accessibility: page("accessibility"),
       },
     },
   },

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Accessibility · tree-element example</title>
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">tree-element example</a></h1>
+      <nav>
+        <a href="/" >Basics</a>
+        <a href="/drag-and-drop.html" >Drag and drop</a>
+        <a href="/load-on-demand.html" >Load on demand</a>
+        <a href="/save-state.html" >Save state</a>
+        <a href="/styling.html" >Styling</a>
+        <a href="/accessibility.html" aria-current="page">Accessibility</a>
+      </nav>
+    </header>
+    <main>
+      <p>
+        The tree follows the WAI-ARIA tree view pattern: roles, levels and
+        states for screen readers, a single tab stop, and the arrow keys to
+        move around. Press <kbd>Tab</kbd> to reach the tree. Nothing is
+        selected yet, so the first node is the tab stop. The panels on the
+        right show what assistive technology sees.
+      </p>
+      <div class="layout">
+        <div>
+          <section class="panel">
+            <h2 id="tree-heading">Dinosaurs</h2>
+            <div id="tree" class="tree a11y"></div>
+          </section>
+          <section class="panel" style="margin-top: 16px">
+            <h2>From code</h2>
+            <p class="hint">
+              Changes made while the focus is elsewhere are not announced by a
+              screen reader. This page announces them in a live region.
+            </p>
+            <div class="toolbar">
+              <button id="select-quiet">Select Tyrannosauroids, keep focus here</button>
+              <button id="select-focus">Select Tyrannosauroids and focus it</button>
+              <button id="focus-tree">Focus the tree</button>
+              <button id="deselect">Deselect</button>
+            </div>
+            <div id="announcements" class="log announcements" role="log" aria-live="polite" aria-label="Announcements"></div>
+          </section>
+          <section class="panel" style="margin-top: 16px">
+            <h2>Options</h2>
+            <div class="toolbar" style="flex-direction: column; align-items: start">
+              <label><input id="no-tab-stop" type="checkbox" /> <code>tabIndex: -1</code>: leave the tree out of the tab order</label>
+              <label><input id="no-keyboard" type="checkbox" /> <code>keyboardSupport: false</code>: no arrow keys</label>
+            </div>
+          </section>
+        </div>
+        <div>
+          <section class="panel">
+            <h2>Focused node</h2>
+            <p id="spoken" class="spoken">Focus a node to see how it is described.</p>
+            <dl id="attributes" class="attributes"></dl>
+          </section>
+          <section class="panel" style="margin-top: 16px">
+            <h2>Keyboard</h2>
+            <table class="keys">
+              <tbody>
+                <tr data-key="Tab"><th><kbd>Tab</kbd></th><td>Move the focus into or out of the tree. The tree is one tab stop.</td></tr>
+                <tr data-key="ArrowDown"><th><kbd>↓</kbd></th><td>Select the next visible node.</td></tr>
+                <tr data-key="ArrowUp"><th><kbd>↑</kbd></th><td>Select the previous visible node.</td></tr>
+                <tr data-key="ArrowRight"><th><kbd>→</kbd></th><td>Open a closed folder, or move to its first child.</td></tr>
+                <tr data-key="ArrowLeft"><th><kbd>←</kbd></th><td>Close an open folder, or move to the parent.</td></tr>
+                <tr data-key=" "><th><kbd>Space</kbd></th><td>Select the first node when nothing is selected.</td></tr>
+              </tbody>
+            </table>
+          </section>
+          <section class="panel" style="margin-top: 16px">
+            <h2>Accessibility tree</h2>
+            <p class="hint">
+              The treeitems a screen reader can reach, built from the aria
+              attributes. <span class="marker">tab</span> marks the node with
+              <code>tabindex="0"</code>.
+            </p>
+            <pre id="outline" class="output outline"></pre>
+          </section>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="/src/pages/accessibility.ts"></script>
+  </body>
+</html>
