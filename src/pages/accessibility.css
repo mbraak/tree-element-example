@@ -72,6 +72,10 @@ kbd {
   background: #e6f0f5;
 }
 
+.details {
+  min-height: 1.5em;
+}
+
 .announcements {
   height: 120px;
 }

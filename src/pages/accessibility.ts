@@ -256,6 +256,29 @@ element.addEventListener("tree.close", (event) => {
   announce(`${event.detail.node.name} collapsed`);
 });
 
+// ---- Opening a node --------------------------------------------------------
+//
+// Enter dispatches `tree.activate` for the selected node, or for the focused
+// node when nothing is selected. It is the keyboard version of clicking a
+// link: open the edit page of the node, for example. The focus stays on the
+// tree, so the details element is a live region (`aria-live="polite"`) to
+// have a screen reader read what was opened.
+
+const details = byId("details");
+
+element.addEventListener("tree.activate", (event) => {
+  const { node } = event.detail;
+
+  const name = document.createElement("strong");
+  name.textContent = node.name;
+
+  // `note` is an extra key in the node data, typed as `unknown`.
+  details.replaceChildren(
+    name,
+    typeof node.note === "string" ? ` — ${node.note}` : "",
+  );
+});
+
 // ---- From code -------------------------------------------------------------
 
 const tyrannosauroids = () => tree.getNodeById(9);

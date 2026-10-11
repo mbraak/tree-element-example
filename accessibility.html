@@ -20,16 +20,25 @@
     <main>
       <p>
         The tree follows the WAI-ARIA tree view pattern: roles, levels and
-        states for screen readers, a single tab stop, and the arrow keys to
-        move around. Press <kbd>Tab</kbd> to reach the tree. Nothing is
-        selected yet, so the first node is the tab stop. The panels on the
-        right show what assistive technology sees.
+        states for screen readers, a single tab stop, and the keyboard to move
+        around. Press <kbd>Tab</kbd> to reach the tree. Nothing is selected
+        yet, so the first node is the tab stop. Press <kbd>Enter</kbd> to open
+        a node. The panels on the right show what assistive technology sees.
       </p>
       <div class="layout">
         <div>
           <section class="panel">
             <h2 id="tree-heading">Dinosaurs</h2>
             <div id="tree" class="tree a11y"></div>
+          </section>
+          <section class="panel" style="margin-top: 16px">
+            <h2>Opened node</h2>
+            <p class="hint">
+              <kbd>Enter</kbd> dispatches <code>tree.activate</code>. A real
+              app would go to the edit page of the node; this page shows the
+              node here, in a live region so a screen reader reads it.
+            </p>
+            <div id="details" class="details" aria-live="polite">Nothing opened yet.</div>
           </section>
           <section class="panel" style="margin-top: 16px">
             <h2>From code</h2>
@@ -49,7 +58,7 @@
             <h2>Options</h2>
             <div class="toolbar" style="flex-direction: column; align-items: start">
               <label><input id="no-tab-stop" type="checkbox" /> <code>tabIndex: -1</code>: leave the tree out of the tab order</label>
-              <label><input id="no-keyboard" type="checkbox" /> <code>keyboardSupport: false</code>: no arrow keys</label>
+              <label><input id="no-keyboard" type="checkbox" /> <code>keyboardSupport: false</code>: no keyboard navigation</label>
             </div>
           </section>
         </div>
@@ -68,6 +77,9 @@
                 <tr data-key="ArrowUp"><th><kbd>↑</kbd></th><td>Select the previous visible node.</td></tr>
                 <tr data-key="ArrowRight"><th><kbd>→</kbd></th><td>Open a closed folder, or move to its first child.</td></tr>
                 <tr data-key="ArrowLeft"><th><kbd>←</kbd></th><td>Close an open folder, or move to the parent.</td></tr>
+                <tr data-key="Home"><th><kbd>Home</kbd></th><td>Select the first node.</td></tr>
+                <tr data-key="End"><th><kbd>End</kbd></th><td>Select the last visible node.</td></tr>
+                <tr data-key="Enter"><th><kbd>Enter</kbd></th><td>Open the node: dispatch <code>tree.activate</code>.</td></tr>
                 <tr data-key=" "><th><kbd>Space</kbd></th><td>Select the first node when nothing is selected.</td></tr>
               </tbody>
             </table>
