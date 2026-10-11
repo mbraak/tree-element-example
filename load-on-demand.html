@@ -7,22 +7,22 @@
   </head>
   <body>
     <header>
-      <h1><a href="/">tree-element example</a></h1>
+      <h1><a href="./">tree-element example</a></h1>
       <nav>
-        <a href="/" >Basics</a>
-        <a href="/drag-and-drop.html" >Drag and drop</a>
-        <a href="/load-on-demand.html" aria-current="page">Load on demand</a>
-        <a href="/save-state.html" >Save state</a>
-        <a href="/styling.html" >Styling</a>
-        <a href="/accessibility.html" >Accessibility</a>
+        <a href="./" >Basics</a>
+        <a href="./drag-and-drop.html" >Drag and drop</a>
+        <a href="./load-on-demand.html" aria-current="page">Load on demand</a>
+        <a href="./save-state.html" >Save state</a>
+        <a href="./styling.html" >Styling</a>
+        <a href="./accessibility.html" >Accessibility</a>
       </nav>
     </header>
     <main>
       <p>
         Only the top level is fetched at first. Opening a folder fetches its
-        children from <code>/api/nodes?node=&lt;id&gt;</code>, which the dev
-        server answers from <code>vite.config.ts</code>. Watch the log, or the
-        network tab. While a folder loads, its node has
+        children from <code>api/nodes/&lt;id&gt;.json</code>. The dev server
+        answers these from <code>vite.config.ts</code>, and the build contains
+        them as static files. Watch the log, or the network tab. While a folder loads, its node has
         <code>aria-busy="true"</code>, which draws the spinner.
       </p>
       <p>

@@ -7,6 +7,8 @@ saving state, styling and accessibility.
 
 Documentation for tree-element: <https://mbraak.github.io/tree-element/>
 
+See it running: <https://mbraak.github.io/tree-element-example/>
+
 ## Run it
 
 ```sh
@@ -26,7 +28,9 @@ Then open <http://localhost:5173/>.
 | `/accessibility.html`   | The aria roles and states the tree renders, naming the tree with `ariaLabelledBy`, the single tab stop, keyboard navigation, opening a node with `Enter`, form fields that keep their own keys, `tabIndex` and `keyboardSupport`, no animation when the user prefers reduced motion, and a live region for changes made from code |
 
 `npm run check` type-checks the project. `npm run build` writes a static build to
-`dist/`, and `npm run preview` serves it.
+`dist/`, and `npm run preview` serves it. The build uses relative urls, so it
+works from any path. Pushing to `master` deploys it to GitHub Pages, see
+`.github/workflows/deploy.yml`.
 
 ## Where to look
 
@@ -55,12 +59,13 @@ small Vite plugin in `vite.config.ts` stands in for it:
 
 | Request                    | Response                                                       |
 | -------------------------- | -------------------------------------------------------------- |
-| `GET /api/nodes`           | The top-level nodes, with `load_on_demand: true` on the folders |
-| `GET /api/nodes?node=<id>` | The children of that node, or a 404 for an unknown id          |
+| `GET api/nodes.json`       | The top-level nodes, with `load_on_demand: true` on the folders |
+| `GET api/nodes/<id>.json`  | The children of that node, or a 404 for an unknown id          |
 
-The responses are delayed by 400 ms so the loading indicator is visible. The
-plugin runs in `npm run dev` and `npm run preview`; a static `dist/` on its own
-has no api, so that page will show a failed load there.
+In `npm run dev` and `npm run preview` the responses are delayed by 400 ms so
+the loading indicator is visible. The build also writes every response to
+`dist/api/`, so a static host such as GitHub Pages serves the same data; there
+the requests are not delayed.
 
 ## Trying the source of tree-element
 
