@@ -108,8 +108,21 @@ export const dinosaurs: ExampleNode[] = [
 const withoutChildren = ({ children, ...node }: ExampleNode): NodeData =>
   children ? { ...node, load_on_demand: true } : node;
 
+/**
+ * A folder whose children fail to load: it is not in `dinosaurs`, so the api
+ * answers 404 for it. Shows what the tree does when loading fails.
+ */
+const failingFolder: NodeData = {
+  id: 99,
+  load_on_demand: true,
+  name: "Fails to load",
+};
+
 /** The top level of the tree, as a server would send it. */
-export const topLevel = (): NodeData[] => dinosaurs.map(withoutChildren);
+export const topLevel = (): NodeData[] => [
+  ...dinosaurs.map(withoutChildren),
+  failingFolder,
+];
 
 /** The children of a node, or `null` when there is no such node. */
 export function childrenOf(id: string): NodeData[] | null {

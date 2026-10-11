@@ -181,9 +181,11 @@ pre.output {
   background: var(--panel);
 }
 
-/* Loading indicator. While a request is in flight, the node (or the tree)
-   has the tree-element-loading class. The default stylesheet draws nothing. */
-.tree-element-loading > .tree-element-element .tree-element-title::after,
+/* Loading indicator. While the children of a folder load, its title has
+   aria-busy="true", which also tells screen readers. While the whole tree
+   loads, the tree element has the tree-element-loading class. The default
+   stylesheet draws nothing. */
+.tree-element-title[aria-busy="true"]::after,
 .tree.tree-element-loading:empty::after {
   content: "";
   display: inline-block;

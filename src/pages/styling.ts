@@ -13,6 +13,7 @@ const rtl = byId<HTMLInputElement>("rtl");
 const buttonRight = byId<HTMLInputElement>("button-right");
 const noSlide = byId<HTMLInputElement>("no-slide");
 const showNotes = byId<HTMLInputElement>("show-notes");
+const dark = byId<HTMLInputElement>("dark");
 
 // ---- Icons -----------------------------------------------------------------
 //
@@ -97,3 +98,12 @@ for (const checkbox of [rtl, buttonRight, noSlide, showNotes]) {
     tree = createTree(state);
   });
 }
+
+// ---- Dark theme ------------------------------------------------------------
+//
+// The colors come from css custom properties, see styling.css. Switching the
+// theme is a class with other values; the tree doesn't need to know.
+
+dark.addEventListener("change", () => {
+  element.classList.toggle("dark", dark.checked);
+});

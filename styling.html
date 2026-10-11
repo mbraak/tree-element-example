@@ -14,13 +14,15 @@
         <a href="/load-on-demand.html" >Load on demand</a>
         <a href="/save-state.html" >Save state</a>
         <a href="/styling.html" aria-current="page">Styling</a>
+        <a href="/accessibility.html" >Accessibility</a>
       </nav>
     </header>
     <main>
       <p>
-        Custom folder icons, extra markup per node from <code>onCreateLi</code>
-        and css that overrides the default stylesheet. The options below
-        recreate the tree, keeping its open and selected nodes.
+        Custom folder icons, extra markup per node from <code>onCreateLi</code>,
+        colors from css custom properties, and css that overrides the default
+        stylesheet. The options below recreate the tree, keeping its open and
+        selected nodes; the dark theme only changes the colors.
       </p>
       <div class="layout">
         <section class="panel">
@@ -34,6 +36,7 @@
             <label><input id="button-right" type="checkbox" /> <code>buttonLeft: false</code>: toggler after the title</label>
             <label><input id="no-slide" type="checkbox" /> <code>slide: false</code>: no animation</label>
             <label><input id="show-notes" type="checkbox" checked /> Show notes and counts (<code>onCreateLi</code>)</label>
+            <label><input id="dark" type="checkbox" /> Dark theme: other values for the css custom properties</label>
           </div>
         </section>
       </div>
