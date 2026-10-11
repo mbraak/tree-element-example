@@ -17,7 +17,7 @@ const noKeyboard = byId<HTMLInputElement>("no-keyboard");
 //
 // The tree renders the WAI-ARIA tree view pattern:
 //
-//   ul[role=tree]
+//   ul[role=tree], named by aria-labelledby or aria-label
 //     li[role=none] > div[role=none] > span[role=treeitem]
 //       aria-label, aria-level, aria-selected, aria-expanded (folders only),
 //       tabindex: 0 on the tab stop, -1 on the other nodes
@@ -51,25 +51,14 @@ function isExposed(item: HTMLElement): boolean {
   return true;
 }
 
-// ---- Labelling the tree ----------------------------------------------------
-//
-// A tree needs an accessible name. The `ul[role=tree]` is created by the
-// widget, so point it at the heading above the tree. It is recreated when the
-// whole tree is rendered again, which the MutationObserver below catches.
-
-function labelTree(): void {
-  const root = element.querySelector("[role=tree]");
-
-  if (root && !root.hasAttribute("aria-labelledby")) {
-    root.setAttribute("aria-labelledby", "tree-heading");
-  }
-}
-
 // ---- Creating the tree -----------------------------------------------------
 
 function createTree(state: null | SavedState): TreeElement {
   const tree = new TreeElement({
     autoOpen: 0,
+    // A tree needs an accessible name. Point it at the heading above the
+    // tree; use `ariaLabel` instead when there is no visible heading.
+    ariaLabelledBy: "tree-heading",
     data: dinosaurs,
     htmlElement: element,
     // keyboardSupport and tabIndex are read in the constructor, so changing
@@ -197,7 +186,6 @@ function showOutline(): void {
 // Everything the panels show comes from the DOM, so watch the DOM instead of
 // the tree events. That also shows that the attributes are kept up to date.
 new MutationObserver(() => {
-  labelTree();
   showOutline();
   showFocusedNode();
 }).observe(element, {
@@ -206,7 +194,6 @@ new MutationObserver(() => {
   subtree: true,
 });
 
-labelTree();
 showOutline();
 
 // ---- Keyboard --------------------------------------------------------------
