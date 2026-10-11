@@ -19,12 +19,13 @@ const noKeyboard = byId<HTMLInputElement>("no-keyboard");
 //
 //   ul[role=tree], named by aria-labelledby or aria-label
 //     li[role=none] > div[role=none] > span[role=treeitem]
-//       aria-label, aria-level, aria-selected, aria-expanded (folders only),
+//       aria-level, aria-selected, aria-expanded (folders only),
 //       tabindex: 0 on the tab stop, -1 on the other nodes
 //     ul[role=group] for the children of a folder
 //
 // The `li` and `div` have role=none, so screen readers skip them and see the
-// title span as the treeitem.
+// title span as the treeitem. A treeitem takes its name from its text: the
+// node name.
 
 const treeItems = (): HTMLElement[] => [
   ...element.querySelectorAll<HTMLElement>("[role=treeitem]"),
@@ -92,7 +93,6 @@ const attributes = byId<HTMLDListElement>("attributes");
 
 const shownAttributes = [
   "role",
-  "aria-label",
   "aria-level",
   "aria-expanded",
   "aria-selected",
@@ -110,7 +110,7 @@ function describeItem(item: HTMLElement): string {
   const expanded = item.getAttribute("aria-expanded");
 
   return [
-    item.getAttribute("aria-label"),
+    item.textContent,
     "tree item",
     expanded === null ? null : expanded === "true" ? "expanded" : "collapsed",
     item.getAttribute("aria-selected") === "true" ? "selected" : null,
@@ -167,7 +167,7 @@ function showOutline(): void {
       const icon = expanded === null ? " " : expanded === "true" ? "▾" : "▸";
 
       const line = document.createElement("div");
-      line.textContent = `${"  ".repeat(level - 1)}${icon} ${item.getAttribute("aria-label")}`;
+      line.textContent = `${"  ".repeat(level - 1)}${icon} ${item.textContent}`;
       line.classList.toggle("selected", item.getAttribute("aria-selected") === "true");
 
       if (item.getAttribute("tabindex") === "0") {
