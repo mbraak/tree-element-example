@@ -131,6 +131,11 @@ export function childrenOf(id: string): NodeData[] | null {
   return node ? (node.children ?? []).map(withoutChildren) : null;
 }
 
+/** The ids of all nodes in `dinosaurs`. */
+export function nodeIds(nodes: ExampleNode[] = dinosaurs): number[] {
+  return nodes.flatMap((node) => [node.id, ...nodeIds(node.children ?? [])]);
+}
+
 function findNode(nodes: ExampleNode[], id: number): ExampleNode | null {
   for (const node of nodes) {
     if (node.id === id) {

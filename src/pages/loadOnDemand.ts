@@ -20,8 +20,9 @@ logEvents(element, byId("log"), [
 const tree = new TreeElement({
   // Called without a node for the initial load, and with the node that is
   // being opened for a subtree. The server marks nodes that have children
-  // with `load_on_demand: true`; see vite.config.ts.
-  dataUrl: (node) => (node ? `/api/nodes?node=${node.id}` : "/api/nodes"),
+  // with `load_on_demand: true`; see vite.config.ts. The urls are relative, so
+  // they also work when the site is served from a subdirectory.
+  dataUrl: (node) => (node ? `api/nodes/${node.id}.json` : "api/nodes.json"),
   htmlElement: element,
 });
 
@@ -64,6 +65,6 @@ byId("reload").addEventListener("click", async () => {
 byId("fail").addEventListener("click", async () => {
   // A response with an error status dispatches `tree.load_failed` and leaves
   // the tree as it is.
-  await tree.loadDataFromUrl("/api/nodes?node=does-not-exist");
+  await tree.loadDataFromUrl("api/nodes/does-not-exist.json");
   print("the request failed, see the events");
 });
