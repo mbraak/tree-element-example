@@ -77,14 +77,39 @@ function createTree(state: null | SavedState): TreeElement {
 
 let tree = createTree(null);
 
-for (const checkbox of [noTabStop, noKeyboard]) {
-  checkbox.addEventListener("change", () => {
-    const state = tree.getState();
+function recreateTree(): void {
+  const state = tree.getState();
 
-    tree.deinit();
-    tree = createTree(state);
-  });
+  tree.deinit();
+  tree = createTree(state);
 }
+
+for (const checkbox of [noTabStop, noKeyboard]) {
+  checkbox.addEventListener("change", recreateTree);
+}
+
+// ---- Reduced motion --------------------------------------------------------
+//
+// When the user prefers reduced motion, `animationSpeed` defaults to 0: folders
+// open and close without sliding. Setting `animationSpeed` yourself overrides
+// that. The preference is read when the tree is created, so recreate the tree
+// when it changes.
+
+const motion = byId("motion");
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+function showMotion(): void {
+  motion.textContent = reducedMotion.matches
+    ? "Reduced motion is on, so folders open and close without animation."
+    : "Folders slide open and closed. Turn on reduced motion in the system settings, or emulate prefers-reduced-motion in the browser's dev tools, and they open instantly.";
+}
+
+reducedMotion.addEventListener("change", () => {
+  showMotion();
+  recreateTree();
+});
+
+showMotion();
 
 // ---- The focused node ------------------------------------------------------
 

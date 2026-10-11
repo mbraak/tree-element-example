@@ -23,7 +23,7 @@ Then open <http://localhost:5173/>.
 | `/load-on-demand.html`  | Fetching the top level from a url and each folder when it is opened, with a loading indicator and a failing request |
 | `/save-state.html`      | `saveState`: the open and selected nodes survive a reload. `getState` and `setState`                       |
 | `/styling.html`         | Custom folder icons, extra markup per node with `onCreateLi`, css overrides, `rtl` and `buttonLeft`        |
-| `/accessibility.html`   | The aria roles and states the tree renders, naming the tree with `ariaLabelledBy`, the single tab stop, keyboard navigation, opening a node with `Enter`, form fields that keep their own keys, `tabIndex` and `keyboardSupport`, and a live region for changes made from code |
+| `/accessibility.html`   | The aria roles and states the tree renders, naming the tree with `ariaLabelledBy`, the single tab stop, keyboard navigation, opening a node with `Enter`, form fields that keep their own keys, `tabIndex` and `keyboardSupport`, no animation when the user prefers reduced motion, and a live region for changes made from code |
 
 `npm run check` type-checks the project. `npm run build` writes a static build to
 `dist/`, and `npm run preview` serves it.
