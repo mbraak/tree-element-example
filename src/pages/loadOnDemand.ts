@@ -17,12 +17,17 @@ logEvents(element, byId("log"), [
   "tree.open",
 ]);
 
+// The tree treats a relative url as relative to the root of the site, so
+// resolve it against the page. This keeps it working when the site is served
+// from a subdirectory, such as on GitHub Pages.
+const apiUrl = (path: string): string => new URL(path, document.baseURI).href;
+
 const tree = new TreeElement({
   // Called without a node for the initial load, and with the node that is
   // being opened for a subtree. The server marks nodes that have children
-  // with `load_on_demand: true`; see vite.config.ts. The urls are relative, so
-  // they also work when the site is served from a subdirectory.
-  dataUrl: (node) => (node ? `api/nodes/${node.id}.json` : "api/nodes.json"),
+  // with `load_on_demand: true`; see vite.config.ts.
+  dataUrl: (node) =>
+    apiUrl(node ? `api/nodes/${node.id}.json` : "api/nodes.json"),
   htmlElement: element,
 });
 
@@ -65,6 +70,6 @@ byId("reload").addEventListener("click", async () => {
 byId("fail").addEventListener("click", async () => {
   // A response with an error status dispatches `tree.load_failed` and leaves
   // the tree as it is.
-  await tree.loadDataFromUrl("api/nodes/does-not-exist.json");
+  await tree.loadDataFromUrl(apiUrl("api/nodes/does-not-exist.json"));
   print("the request failed, see the events");
 });
