@@ -256,6 +256,16 @@ element.addEventListener("tree.close", (event) => {
   announce(`${event.detail.node.name} collapsed`);
 });
 
+// ---- Form fields -----------------------------------------------------------
+//
+// The tree listens to keydown on the document, but only handles a key when the
+// focus is on one of its nodes. Keys in the fields above the tree do what they
+// normally do. Enter in the text field would submit the form; keep the page.
+
+byId<HTMLFormElement>("fields").addEventListener("submit", (event) => {
+  event.preventDefault();
+});
+
 // ---- Opening a node --------------------------------------------------------
 //
 // Enter dispatches `tree.activate` for the selected node, or for the focused

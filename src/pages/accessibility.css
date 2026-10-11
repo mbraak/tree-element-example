@@ -72,6 +72,31 @@ kbd {
   background: #e6f0f5;
 }
 
+.fields {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 8px 12px;
+  align-items: center;
+}
+
+/* The label text and the field each take a column of the grid. */
+.fields label {
+  display: contents;
+}
+
+.fields select,
+.fields textarea {
+  font: inherit;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: #fff;
+}
+
+.fields textarea {
+  resize: vertical;
+}
+
 .details {
   min-height: 1.5em;
 }

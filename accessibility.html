@@ -28,6 +28,27 @@
       <div class="layout">
         <div>
           <section class="panel">
+            <h2>Form</h2>
+            <p class="hint">
+              The keys only act on the tree when the focus is on a node, so
+              <kbd>Home</kbd>, <kbd>End</kbd>, <kbd>Enter</kbd> and the arrow
+              keys still work in these fields. <kbd>Tab</kbd> moves on to the
+              tree.
+            </p>
+            <form id="fields" class="fields">
+              <label>Name <input type="text" name="name" value="Tyrannosaurus rex" /></label>
+              <label>
+                Period
+                <select name="period">
+                  <option>Triassic</option>
+                  <option>Jurassic</option>
+                  <option selected>Cretaceous</option>
+                </select>
+              </label>
+              <label>Notes <textarea name="notes" rows="2">Large predator with tiny arms.</textarea></label>
+            </form>
+          </section>
+          <section class="panel" style="margin-top: 16px">
             <h2 id="tree-heading">Dinosaurs</h2>
             <div id="tree" class="tree a11y"></div>
           </section>
