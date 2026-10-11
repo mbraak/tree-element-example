@@ -1,5 +1,45 @@
-/* Overrides for the default stylesheet. Every selector in tree_element.css is
-   nested under ul.tree-element, so these need the same specificity. */
+/* Overrides for the default stylesheet. */
+
+/* Colors. tree_element.css takes its colors from custom properties, so set
+   those instead of overriding its rules. The --fancy-* properties are for the
+   markup this page adds. Contrast: at least 4.5:1 for text, 3:1 for icons. */
+.fancy {
+  --tree-element-title-color: #1f2933;
+  --tree-element-toggler-color: #5f6e7c;
+  --tree-element-toggler-hover-color: #1f2933;
+  --tree-element-selected-background: #1c4257;
+  --tree-element-selected-color: #fff;
+  --tree-element-selected-text-shadow: none;
+  --fancy-guide: #e3e8ed;
+  --fancy-hover: #f1f5f8;
+  --fancy-muted: #5f6e7c;
+  --fancy-selected-muted: #cfd8e0;
+  --fancy-count-background: #e3e8ed;
+  --fancy-count-color: #3e4c59;
+}
+
+/* A dark theme is a different set of values. */
+.fancy.dark {
+  --tree-element-title-color: #e4e9ee;
+  --tree-element-toggler-color: #9aa8b5;
+  --tree-element-toggler-hover-color: #fff;
+  --tree-element-selected-background: #2b5d85;
+  --tree-element-drop-hint-color: #6ea8ff;
+  --fancy-guide: #2a3a48;
+  --fancy-hover: #1f2d3a;
+  --fancy-muted: #9aa8b5;
+  --fancy-selected-muted: #d6e4ef;
+  --fancy-count-background: #2a3a48;
+  --fancy-count-color: #d0d9e1;
+
+  padding: 8px;
+  border-radius: 6px;
+  background: #15202b;
+  color-scheme: dark;
+}
+
+/* Every selector in tree_element.css is nested under ul.tree-element, so the
+   rules below need the same specificity. */
 
 .fancy ul.tree-element {
   font-size: 15px;
@@ -8,14 +48,14 @@
 /* Wider indentation. */
 .fancy ul.tree-element ul.tree-element-common {
   margin-left: 22px;
-  border-left: 1px solid #e3e8ed;
+  border-left: 1px solid var(--fancy-guide);
 }
 
 .fancy ul.tree-element.tree-element-rtl ul.tree-element-common {
   margin-left: 0;
   margin-right: 22px;
   border-left: 0;
-  border-right: 1px solid #e3e8ed;
+  border-right: 1px solid var(--fancy-guide);
 }
 
 /* Rows with a hover color and rounded corners. */
@@ -27,24 +67,18 @@
 }
 
 .fancy ul.tree-element .tree-element-element:hover {
-  background: #f1f5f8;
-}
-
-/* The selection color is a gradient by default. */
-.fancy ul.tree-element li.tree-element-selected > .tree-element-element,
-.fancy ul.tree-element li.tree-element-selected > .tree-element-element:hover {
-  background: #1c4257;
-  text-shadow: none;
-}
-
-.fancy ul.tree-element li.tree-element-selected > .tree-element-element .tree-element-title {
-  color: #fff;
+  background: var(--fancy-hover);
 }
 
 /* The togglers hold an inline svg, see styling.ts. */
 .fancy ul.tree-element .tree-element-toggler {
   display: inline-flex;
-  color: #6b7a88;
+}
+
+/* The toggler color has no selected variant; on the dark selected row it
+   needs a lighter color. */
+.fancy ul.tree-element li.tree-element-selected > .tree-element-element .tree-element-toggler {
+  color: var(--fancy-selected-muted);
 }
 
 .fancy ul.tree-element .tree-element-toggler .chevron {
@@ -53,10 +87,6 @@
 
 .fancy ul.tree-element .tree-element-toggler-left {
   margin-right: 0;
-}
-
-.fancy ul.tree-element .tree-element-title {
-  color: #1f2933;
 }
 
 .fancy ul.tree-element .tree-element-title-folder {
@@ -69,15 +99,15 @@
   line-height: 1;
   padding: 3px 6px;
   border-radius: 999px;
-  background: #e3e8ed;
-  color: #3e4c59;
+  background: var(--fancy-count-background);
+  color: var(--fancy-count-color);
 }
 
 .fancy .note {
   font-size: 13px;
-  color: #6b7a88;
+  color: var(--fancy-muted);
 }
 
 .fancy li.tree-element-selected > .tree-element-element .note {
-  color: #cfd8e0;
+  color: var(--fancy-selected-muted);
 }
