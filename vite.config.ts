@@ -85,8 +85,60 @@ const pages = [
 const pageUrl = (name: string) => (name === "index" ? "./" : `./${name}.html`);
 
 /**
+ * Sets the theme on `<html>` as `data-theme="light"` or `"dark"`, and makes the
+ * theme switch in the header work. It is inline in the head, so the page is
+ * not shown in the wrong theme first. The choice is kept in localStorage;
+ * without one the page follows the system setting.
+ */
+const themeScript = `
+(() => {
+  const root = document.documentElement;
+  const systemDark = matchMedia("(prefers-color-scheme: dark)");
+  let stored = null;
+
+  try {
+    stored = localStorage.getItem("theme");
+  } catch {
+    // Storage can be blocked; then the choice lasts until the page closes.
+  }
+
+  const apply = (theme) => {
+    root.dataset.theme = theme;
+    document
+      .getElementById("theme-switch")
+      ?.setAttribute("aria-pressed", String(theme === "dark"));
+  };
+
+  apply(stored ?? (systemDark.matches ? "dark" : "light"));
+
+  systemDark.addEventListener("change", () => {
+    if (!stored) {
+      apply(systemDark.matches ? "dark" : "light");
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const button = document.getElementById("theme-switch");
+
+    apply(root.dataset.theme);
+    button.addEventListener("click", () => {
+      stored = root.dataset.theme === "dark" ? "light" : "dark";
+      apply(stored);
+
+      try {
+        localStorage.setItem("theme", stored);
+      } catch {
+        // See above.
+      }
+    });
+  });
+})();
+`;
+
+/**
  * Replaces the `<!-- header -->` comment in each page with the header, so that
- * the pages share it. The link to the current page gets `aria-current`.
+ * the pages share it. The link to the current page gets `aria-current`. Also
+ * adds the theme script to the head.
  */
 function sharedHeader(): Plugin {
   return {
@@ -106,13 +158,19 @@ function sharedHeader(): Plugin {
 ${links}
       </nav>
       <a class="repo-link" href="https://github.com/mbraak/tree-element-example">GitHub</a>
+      <button id="theme-switch" class="theme-switch" type="button" aria-pressed="false">Dark theme</button>
     </header>`;
 
       if (!html.includes("<!-- header -->")) {
         throw new Error(`${ctx.filename} has no <!-- header --> comment`);
       }
 
-      return html.replace("    <!-- header -->", header);
+      return {
+        html: html.replace("    <!-- header -->", header),
+        tags: [
+          { tag: "script", children: themeScript, injectTo: "head-prepend" },
+        ],
+      };
     },
   };
 }
