@@ -37,7 +37,10 @@ let nextId = 100;
 
 const actions: Record<string, (node: Node) => void> = {
   "add-child": (parent) => {
-    const child = tree.appendNode({ id: nextId, name: `Node ${nextId}` }, parent);
+    const child = tree.appendNode(
+      { id: nextId, name: `Node ${nextId}` },
+      parent,
+    );
     nextId += 1;
 
     void tree.openNode(parent);
@@ -46,7 +49,10 @@ const actions: Record<string, (node: Node) => void> = {
   },
 
   "add-after": (node) => {
-    const sibling = tree.addNodeAfter({ id: nextId, name: `Node ${nextId}` }, node);
+    const sibling = tree.addNodeAfter(
+      { id: nextId, name: `Node ${nextId}` },
+      node,
+    );
     nextId += 1;
 
     if (sibling) {

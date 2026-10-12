@@ -54,7 +54,11 @@ function fakeNodesApi(): Plugin {
     // static host answers them with a 404, like the dev server does.
     generateBundle() {
       const emitJson = (fileName: string, data: unknown) =>
-        this.emitFile({ type: "asset", fileName, source: JSON.stringify(data) });
+        this.emitFile({
+          type: "asset",
+          fileName,
+          source: JSON.stringify(data),
+        });
 
       emitJson("api/nodes.json", topLevel());
 
@@ -121,7 +125,10 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: Object.fromEntries(
-        pages.map(({ name }) => [name, fileURLToPath(new URL(`${name}.html`, import.meta.url))]),
+        pages.map(({ name }) => [
+          name,
+          fileURLToPath(new URL(`${name}.html`, import.meta.url)),
+        ]),
       ),
     },
   },

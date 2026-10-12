@@ -21,7 +21,11 @@ kbd {
   display: inline-block;
   min-width: 1.6em;
   padding: 0 6px;
-  font: 13px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
+  font:
+    13px/1.6 ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
   text-align: center;
   border: 1px solid var(--border);
   border-bottom-width: 2px;
@@ -39,7 +43,11 @@ kbd {
   grid-template-columns: max-content 1fr;
   gap: 2px 16px;
   margin: 0;
-  font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  font:
+    13px/1.5 ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
 }
 
 .attributes dt {
@@ -116,7 +124,11 @@ kbd {
 
 .marker {
   padding: 0 5px;
-  font: 11px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+  font:
+    11px/1.5 ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
   border-radius: 999px;
   background: var(--accent);
   color: #fff;

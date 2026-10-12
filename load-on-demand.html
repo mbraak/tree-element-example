@@ -13,12 +13,13 @@
         Only the top level is fetched at first. Opening a folder fetches its
         children from <code>api/nodes/&lt;id&gt;.json</code>. The dev server
         answers these from <code>vite.config.ts</code>, and the build contains
-        them as static files. Watch the log, or the network tab. While a folder loads, its node has
-        <code>aria-busy="true"</code>, which draws the spinner.
+        them as static files. Watch the log, or the network tab. While a folder
+        loads, its node has <code>aria-busy="true"</code>, which draws the
+        spinner.
       </p>
       <p>
-        The children of <em>Fails to load</em> don't exist on the server. Opening
-        it makes one request, which fails: the folder stays closed and
+        The children of <em>Fails to load</em> don't exist on the server.
+        Opening it makes one request, which fails: the folder stays closed and
         <code>tree.load_failed</code> is dispatched. Open it again to retry.
       </p>
       <div class="layout">
