@@ -11,6 +11,42 @@
   --border: #d9e0e6;
   --panel: #f6f8fa;
   --accent: #1c4257;
+  --on-accent: #fff;
+  --background: #fff;
+  --field: #fff;
+  --highlight: #e6f0f5;
+  --notice-background: #fff7e0;
+  --notice-border: #f0d78c;
+  --shadow: rgba(0, 0, 0, 0.12);
+}
+
+/* The dark theme. The theme switch in the header sets data-theme on <html>,
+   see vite.config.ts. The tree takes its colors from the --tree-element-*
+   properties. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --text: #e4e9ee;
+  --muted: #9aa8b5;
+  --border: #2f3f4d;
+  --panel: #1a2530;
+  --accent: #7cb7dc;
+  --on-accent: #10181f;
+  --background: #10181f;
+  --field: #15202b;
+  --highlight: #1f3446;
+  --notice-background: #3a3016;
+  --notice-border: #6b5a24;
+  --shadow: rgba(0, 0, 0, 0.5);
+
+  --tree-element-title-color: #e4e9ee;
+  --tree-element-toggler-color: #9aa8b5;
+  --tree-element-toggler-hover-color: #fff;
+  --tree-element-selected-background: #2b5d85;
+  --tree-element-selected-color: #fff;
+  --tree-element-selected-text-shadow: none;
+  --tree-element-drop-hint-color: #6ea8ff;
+  --tree-element-dragging-color: #10181f;
+  --tree-element-dragging-background: #e4e9ee;
 }
 
 * {
@@ -25,7 +61,7 @@ body {
     "Segoe UI",
     sans-serif;
   color: var(--text);
-  background: #fff;
+  background: var(--background);
 }
 
 header {
@@ -60,6 +96,17 @@ nav a[aria-current="page"] {
 .repo-link {
   margin-left: auto;
   color: var(--accent);
+}
+
+.theme-switch {
+  padding: 2px 10px;
+}
+
+/* A toggle button: aria-pressed is "true" in the dark theme. */
+.theme-switch[aria-pressed="true"] {
+  color: var(--on-accent);
+  background: var(--accent);
+  border-color: var(--accent);
 }
 
 main {
@@ -124,7 +171,8 @@ input[type="number"] {
   padding: 4px 10px;
   border: 1px solid var(--border);
   border-radius: 4px;
-  background: #fff;
+  color: inherit;
+  background: var(--field);
 }
 
 input[type="number"] {
@@ -164,8 +212,8 @@ pre.output {
   padding: 8px 12px;
   margin-bottom: 12px;
   border-radius: 4px;
-  background: #fff7e0;
-  border: 1px solid #f0d78c;
+  background: var(--notice-background);
+  border: 1px solid var(--notice-border);
 }
 
 .notice[hidden] {
@@ -179,10 +227,10 @@ pre.output {
   margin: 0;
   padding: 4px;
   list-style: none;
-  background: #fff;
+  background: var(--background);
   border: 1px solid var(--border);
   border-radius: 6px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 16px var(--shadow);
 }
 
 .context-menu button {
