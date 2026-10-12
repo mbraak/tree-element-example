@@ -1,7 +1,5 @@
 import TreeElement from "tree-element";
 import type { Node } from "tree-element";
-import "tree-element/tree_element.css";
-import "../style.css";
 
 import { dinosaurs } from "../data";
 import { byId } from "../dom";

@@ -1,5 +1,8 @@
 /* Page chrome for the examples. The tree itself is styled by
-   tree-element/tree_element.css, imported from each page script. */
+   tree-element/tree_element.css. The pages link this file from their html, not
+   from their scripts, so that they are not shown unstyled first. */
+
+@import "tree-element/tree_element.css";
 
 :root {
   color-scheme: light;
