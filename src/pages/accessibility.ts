@@ -148,7 +148,10 @@ function showFocusedNode(): void {
 
   attributes.replaceChildren();
 
-  if (!(item instanceof HTMLElement) || item.getAttribute("role") !== "treeitem") {
+  if (
+    !(item instanceof HTMLElement) ||
+    item.getAttribute("role") !== "treeitem"
+  ) {
     spoken.textContent = element.contains(item)
       ? ""
       : "The focus is not on the tree.";
@@ -190,7 +193,10 @@ function showOutline(): void {
 
       const line = document.createElement("div");
       line.textContent = `${"  ".repeat(level - 1)}${icon} ${item.textContent}`;
-      line.classList.toggle("selected", item.getAttribute("aria-selected") === "true");
+      line.classList.toggle(
+        "selected",
+        item.getAttribute("aria-selected") === "true",
+      );
 
       if (item.getAttribute("tabindex") === "0") {
         const marker = document.createElement("span");

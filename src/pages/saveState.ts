@@ -23,7 +23,12 @@ function showState(): void {
   stored.textContent = localStorage.getItem(STORAGE_KEY) ?? "(nothing saved)";
 }
 
-for (const name of ["tree.open", "tree.close", "tree.select", "tree.deselect"] as const) {
+for (const name of [
+  "tree.open",
+  "tree.close",
+  "tree.select",
+  "tree.deselect",
+] as const) {
   // The state is saved as part of handling these, so read it a tick later.
   element.addEventListener(name, () => setTimeout(showState));
 }

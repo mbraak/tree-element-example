@@ -18,14 +18,14 @@ npm run dev
 
 Then open <http://localhost:5173/>.
 
-| Page                    | What it shows                                                                                              |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `/`                     | A tree from an array, the events it dispatches, and the methods that change it. Right-click a node for a menu. |
-| `/drag-and-drop.html`   | `dragAndDrop`, restricting moves with `onCanMove` and `onCanMoveTo`, and confirming a move before it is applied with `tree.move` and `doMove` |
-| `/load-on-demand.html`  | Fetching the top level from a url and each folder when it is opened, a loading indicator drawn from `aria-busy`, and a folder and a request that fail |
-| `/save-state.html`      | `saveState`: the open and selected nodes survive a reload. `getState` and `setState`                       |
-| `/styling.html`         | Custom folder icons, extra markup per node with `onCreateLi`, colors from css custom properties with a dark theme, css overrides, `rtl` and `buttonLeft` |
-| `/accessibility.html`   | The aria roles and states the tree renders, naming the tree with `ariaLabelledBy`, the single tab stop, keyboard navigation, opening a node with `Enter`, form fields that keep their own keys, `tabIndex` and `keyboardSupport`, no animation when the user prefers reduced motion, and a live region for changes made from code |
+| Page                   | What it shows                                                                                                                                                                                                                                                                                                                     |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/`                    | A tree from an array, the events it dispatches, and the methods that change it. Right-click a node for a menu.                                                                                                                                                                                                                    |
+| `/drag-and-drop.html`  | `dragAndDrop`, restricting moves with `onCanMove` and `onCanMoveTo`, and confirming a move before it is applied with `tree.move` and `doMove`                                                                                                                                                                                     |
+| `/load-on-demand.html` | Fetching the top level from a url and each folder when it is opened, a loading indicator drawn from `aria-busy`, and a folder and a request that fail                                                                                                                                                                             |
+| `/save-state.html`     | `saveState`: the open and selected nodes survive a reload. `getState` and `setState`                                                                                                                                                                                                                                              |
+| `/styling.html`        | Custom folder icons, extra markup per node with `onCreateLi`, colors from css custom properties with a dark theme, css overrides, `rtl` and `buttonLeft`                                                                                                                                                                          |
+| `/accessibility.html`  | The aria roles and states the tree renders, naming the tree with `ariaLabelledBy`, the single tab stop, keyboard navigation, opening a node with `Enter`, form fields that keep their own keys, `tabIndex` and `keyboardSupport`, no animation when the user prefers reduced motion, and a live region for changes made from code |
 
 `npm run check` type-checks the project. `npm run build` writes a static build to
 `dist/`, and `npm run preview` serves it. The build uses relative urls, so it
@@ -57,10 +57,10 @@ import "tree-element/tree_element.css";
 The load-on-demand page needs a server that answers the tree's requests. A
 small Vite plugin in `vite.config.ts` stands in for it:
 
-| Request                    | Response                                                       |
-| -------------------------- | -------------------------------------------------------------- |
-| `GET api/nodes.json`       | The top-level nodes, with `load_on_demand: true` on the folders |
-| `GET api/nodes/<id>.json`  | The children of that node, or a 404 for an unknown id          |
+| Request                   | Response                                                        |
+| ------------------------- | --------------------------------------------------------------- |
+| `GET api/nodes.json`      | The top-level nodes, with `load_on_demand: true` on the folders |
+| `GET api/nodes/<id>.json` | The children of that node, or a 404 for an unknown id           |
 
 In `npm run dev` and `npm run preview` the responses are delayed by 400 ms so
 the loading indicator is visible. The build also writes every response to

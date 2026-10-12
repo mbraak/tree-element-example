@@ -72,7 +72,11 @@
 
 /* The toggler color has no selected variant; on the dark selected row it
    needs a lighter color. */
-.fancy ul.tree-element li.tree-element-selected > .tree-element-element .tree-element-toggler {
+.fancy
+  ul.tree-element
+  li.tree-element-selected
+  > .tree-element-element
+  .tree-element-toggler {
   color: var(--fancy-selected-muted);
 }
 
@@ -84,7 +88,9 @@
 /* A leaf has no toggler. Indent its title by the toggler (24px) plus the gap
    (6px), so it lines up with the folder titles. margin-inline-start is the
    right margin in rtl. */
-.fancy ul.tree-element .tree-element-title-button-left:not(.tree-element-title-folder) {
+.fancy
+  ul.tree-element
+  .tree-element-title-button-left:not(.tree-element-title-folder) {
   margin-inline-start: 30px;
 }
 

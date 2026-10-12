@@ -13,9 +13,9 @@
       <p>
         The tree follows the WAI-ARIA tree view pattern: roles, levels and
         states for screen readers, a single tab stop, and the keyboard to move
-        around. Press <kbd>Tab</kbd> to reach the tree. Nothing is selected
-        yet, so the first node is the tab stop. Press <kbd>Enter</kbd> to open
-        a node. The panels on the right show what assistive technology sees.
+        around. Press <kbd>Tab</kbd> to reach the tree. Nothing is selected yet,
+        so the first node is the tab stop. Press <kbd>Enter</kbd> to open a
+        node. The panels on the right show what assistive technology sees.
       </p>
       <div class="layout">
         <div>
@@ -28,7 +28,9 @@
               tree.
             </p>
             <form id="fields" class="fields">
-              <label>Name <input type="text" name="name" value="Tyrannosaurus rex" /></label>
+              <label
+                >Name <input type="text" name="name" value="Tyrannosaurus rex"
+              /></label>
               <label>
                 Period
                 <select name="period">
@@ -37,7 +39,11 @@
                   <option selected>Cretaceous</option>
                 </select>
               </label>
-              <label>Notes <textarea name="notes" rows="2">Large predator with tiny arms.</textarea></label>
+              <label
+                >Notes
+                <textarea name="notes" rows="2">
+Large predator with tiny arms.</textarea>
+              </label>
             </form>
           </section>
           <section class="panel" style="margin-top: 16px">
@@ -47,11 +53,13 @@
           <section class="panel" style="margin-top: 16px">
             <h2>Opened node</h2>
             <p class="hint">
-              <kbd>Enter</kbd> dispatches <code>tree.activate</code>. A real
-              app would go to the edit page of the node; this page shows the
-              node here, in a live region so a screen reader reads it.
+              <kbd>Enter</kbd> dispatches <code>tree.activate</code>. A real app
+              would go to the edit page of the node; this page shows the node
+              here, in a live region so a screen reader reads it.
             </p>
-            <div id="details" class="details" aria-live="polite">Nothing opened yet.</div>
+            <div id="details" class="details" aria-live="polite">
+              Nothing opened yet.
+            </div>
           </section>
           <section class="panel" style="margin-top: 16px">
             <h2>From code</h2>
@@ -60,18 +68,39 @@
               screen reader. This page announces them in a live region.
             </p>
             <div class="toolbar">
-              <button id="select-quiet">Select Tyrannosauroids, keep focus here</button>
-              <button id="select-focus">Select Tyrannosauroids and focus it</button>
+              <button id="select-quiet">
+                Select Tyrannosauroids, keep focus here
+              </button>
+              <button id="select-focus">
+                Select Tyrannosauroids and focus it
+              </button>
               <button id="focus-tree">Focus the tree</button>
               <button id="deselect">Deselect</button>
             </div>
-            <div id="announcements" class="log announcements" role="log" aria-live="polite" aria-label="Announcements"></div>
+            <div
+              id="announcements"
+              class="log announcements"
+              role="log"
+              aria-live="polite"
+              aria-label="Announcements"
+            ></div>
           </section>
           <section class="panel" style="margin-top: 16px">
             <h2>Options</h2>
-            <div class="toolbar" style="flex-direction: column; align-items: start">
-              <label><input id="no-tab-stop" type="checkbox" /> <code>tabIndex: -1</code>: leave the tree out of the tab order</label>
-              <label><input id="no-keyboard" type="checkbox" /> <code>keyboardSupport: false</code>: no keyboard navigation</label>
+            <div
+              class="toolbar"
+              style="flex-direction: column; align-items: start"
+            >
+              <label
+                ><input id="no-tab-stop" type="checkbox" />
+                <code>tabIndex: -1</code>: leave the tree out of the tab
+                order</label
+              >
+              <label
+                ><input id="no-keyboard" type="checkbox" />
+                <code>keyboardSupport: false</code>: no keyboard
+                navigation</label
+              >
             </div>
             <p id="motion" class="hint" style="margin: 12px 0 0"></p>
           </section>
@@ -79,22 +108,54 @@
         <div>
           <section class="panel">
             <h2>Focused node</h2>
-            <p id="spoken" class="spoken">Focus a node to see how it is described.</p>
+            <p id="spoken" class="spoken">
+              Focus a node to see how it is described.
+            </p>
             <dl id="attributes" class="attributes"></dl>
           </section>
           <section class="panel" style="margin-top: 16px">
             <h2>Keyboard</h2>
             <table class="keys">
               <tbody>
-                <tr data-key="Tab"><th><kbd>Tab</kbd></th><td>Move the focus into or out of the tree. The tree is one tab stop.</td></tr>
-                <tr data-key="ArrowDown"><th><kbd>↓</kbd></th><td>Select the next visible node.</td></tr>
-                <tr data-key="ArrowUp"><th><kbd>↑</kbd></th><td>Select the previous visible node.</td></tr>
-                <tr data-key="ArrowRight"><th><kbd>→</kbd></th><td>Open a closed folder, or move to its first child.</td></tr>
-                <tr data-key="ArrowLeft"><th><kbd>←</kbd></th><td>Close an open folder, or move to the parent.</td></tr>
-                <tr data-key="Home"><th><kbd>Home</kbd></th><td>Select the first node.</td></tr>
-                <tr data-key="End"><th><kbd>End</kbd></th><td>Select the last visible node.</td></tr>
-                <tr data-key="Enter"><th><kbd>Enter</kbd></th><td>Open the node: dispatch <code>tree.activate</code>.</td></tr>
-                <tr data-key=" "><th><kbd>Space</kbd></th><td>Select the first node when nothing is selected.</td></tr>
+                <tr data-key="Tab">
+                  <th><kbd>Tab</kbd></th>
+                  <td>
+                    Move the focus into or out of the tree. The tree is one tab
+                    stop.
+                  </td>
+                </tr>
+                <tr data-key="ArrowDown">
+                  <th><kbd>↓</kbd></th>
+                  <td>Select the next visible node.</td>
+                </tr>
+                <tr data-key="ArrowUp">
+                  <th><kbd>↑</kbd></th>
+                  <td>Select the previous visible node.</td>
+                </tr>
+                <tr data-key="ArrowRight">
+                  <th><kbd>→</kbd></th>
+                  <td>Open a closed folder, or move to its first child.</td>
+                </tr>
+                <tr data-key="ArrowLeft">
+                  <th><kbd>←</kbd></th>
+                  <td>Close an open folder, or move to the parent.</td>
+                </tr>
+                <tr data-key="Home">
+                  <th><kbd>Home</kbd></th>
+                  <td>Select the first node.</td>
+                </tr>
+                <tr data-key="End">
+                  <th><kbd>End</kbd></th>
+                  <td>Select the last visible node.</td>
+                </tr>
+                <tr data-key="Enter">
+                  <th><kbd>Enter</kbd></th>
+                  <td>Open the node: dispatch <code>tree.activate</code>.</td>
+                </tr>
+                <tr data-key=" ">
+                  <th><kbd>Space</kbd></th>
+                  <td>Select the first node when nothing is selected.</td>
+                </tr>
               </tbody>
             </table>
           </section>
