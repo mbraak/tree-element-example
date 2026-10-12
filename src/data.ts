@@ -2,11 +2,13 @@ import type { NodeData } from "tree-element";
 
 /**
  * The nodes of the example tree. `name`, `id` and `children` are what
- * tree-element uses; `note` is an extra property that is copied onto the
- * `Node` objects and read back on the styling page.
+ * tree-element uses; `note` and `period` are extra properties that are copied
+ * onto the `Node` objects and read back on the styling page.
  */
 export type ExampleNode = {
   children?: ExampleNode[];
+  /** The geological period(s) the group lived in. Only on the leaf nodes. */
+  period?: string;
   id: number;
   name: string;
   note?: string;
@@ -18,28 +20,88 @@ export const dinosaurs: ExampleNode[] = [
     id: 1,
     note: "lizard-hipped",
     children: [
-      { name: "Herrerasaurians", id: 2, note: "early predators" },
+      {
+        name: "Herrerasaurians",
+        id: 2,
+        note: "early predators",
+        period: "Triassic",
+      },
       {
         name: "Theropods",
         id: 3,
         note: "mostly carnivores",
         children: [
-          { name: "Coelophysoids", id: 4, note: "slender early theropods" },
-          { name: "Ceratosaurians", id: 5, note: "horned skulls" },
-          { name: "Spinosauroids", id: 6, note: "crocodile-like snouts" },
-          { name: "Carnosaurians", id: 7, note: "large predators" },
+          {
+            name: "Coelophysoids",
+            id: 4,
+            note: "slender early theropods",
+            period: "Triassic–Jurassic",
+          },
+          {
+            name: "Ceratosaurians",
+            id: 5,
+            note: "horned skulls",
+            period: "Jurassic–Cretaceous",
+          },
+          {
+            name: "Spinosauroids",
+            id: 6,
+            note: "crocodile-like snouts",
+            period: "Jurassic–Cretaceous",
+          },
+          {
+            name: "Carnosaurians",
+            id: 7,
+            note: "large predators",
+            period: "Jurassic–Cretaceous",
+          },
           {
             name: "Coelurosaurians",
             id: 8,
             note: "feathered",
             children: [
-              { name: "Tyrannosauroids", id: 9, note: "includes T. rex" },
-              { name: "Ornithomimosaurians", id: 10, note: "ostrich-like" },
-              { name: "Therizinosauroids", id: 11, note: "huge claws" },
-              { name: "Oviraptorosaurians", id: 12, note: "toothless beaks" },
-              { name: "Dromaeosaurids", id: 13, note: "raptors" },
-              { name: "Troodontids", id: 14, note: "large brains" },
-              { name: "Avialans", id: 15, note: "includes birds" },
+              {
+                name: "Tyrannosauroids",
+                id: 9,
+                note: "includes T. rex",
+                period: "Jurassic–Cretaceous",
+              },
+              {
+                name: "Ornithomimosaurians",
+                id: 10,
+                note: "ostrich-like",
+                period: "Cretaceous",
+              },
+              {
+                name: "Therizinosauroids",
+                id: 11,
+                note: "huge claws",
+                period: "Cretaceous",
+              },
+              {
+                name: "Oviraptorosaurians",
+                id: 12,
+                note: "toothless beaks",
+                period: "Cretaceous",
+              },
+              {
+                name: "Dromaeosaurids",
+                id: 13,
+                note: "raptors",
+                period: "Cretaceous",
+              },
+              {
+                name: "Troodontids",
+                id: 14,
+                note: "large brains",
+                period: "Cretaceous",
+              },
+              {
+                name: "Avialans",
+                id: 15,
+                note: "includes birds",
+                period: "Jurassic–today",
+              },
             ],
           },
         ],
@@ -49,23 +111,39 @@ export const dinosaurs: ExampleNode[] = [
         id: 16,
         note: "long necks",
         children: [
-          { name: "Prosauropods", id: 17, note: "early long-necks" },
+          {
+            name: "Prosauropods",
+            id: 17,
+            note: "early long-necks",
+            period: "Triassic–Jurassic",
+          },
           {
             name: "Sauropods",
             id: 18,
             note: "giants",
             children: [
-              { name: "Diplodocoids", id: 19, note: "whip-like tails" },
+              {
+                name: "Diplodocoids",
+                id: 19,
+                note: "whip-like tails",
+                period: "Jurassic–Cretaceous",
+              },
               {
                 name: "Macronarians",
                 id: 20,
                 note: "large nostrils",
                 children: [
-                  { name: "Brachiosaurids", id: 21, note: "giraffe-like" },
+                  {
+                    name: "Brachiosaurids",
+                    id: 21,
+                    note: "giraffe-like",
+                    period: "Jurassic–Cretaceous",
+                  },
                   {
                     name: "Titanosaurians",
                     id: 22,
                     note: "largest land animals",
+                    period: "Cretaceous",
                   },
                 ],
               },
@@ -80,24 +158,56 @@ export const dinosaurs: ExampleNode[] = [
     id: 23,
     note: "bird-hipped",
     children: [
-      { name: "Heterodontosaurids", id: 24, note: "varied teeth" },
+      {
+        name: "Heterodontosaurids",
+        id: 24,
+        note: "varied teeth",
+        period: "Triassic–Cretaceous",
+      },
       {
         name: "Thyreophorans",
         id: 25,
         note: "armoured",
         children: [
-          { name: "Ankylosaurians", id: 26, note: "club tails" },
-          { name: "Stegosaurians", id: 27, note: "back plates" },
+          {
+            name: "Ankylosaurians",
+            id: 26,
+            note: "club tails",
+            period: "Jurassic–Cretaceous",
+          },
+          {
+            name: "Stegosaurians",
+            id: 27,
+            note: "back plates",
+            period: "Jurassic–Cretaceous",
+          },
         ],
       },
       {
         name: "Ornithopods",
         id: 28,
         note: "bipedal herbivores",
-        children: [{ name: "Hadrosaurids", id: 29, note: "duck-billed" }],
+        children: [
+          {
+            name: "Hadrosaurids",
+            id: 29,
+            note: "duck-billed",
+            period: "Cretaceous",
+          },
+        ],
       },
-      { name: "Pachycephalosaurians", id: 30, note: "dome-headed" },
-      { name: "Ceratopsians", id: 31, note: "horned faces" },
+      {
+        name: "Pachycephalosaurians",
+        id: 30,
+        note: "dome-headed",
+        period: "Cretaceous",
+      },
+      {
+        name: "Ceratopsians",
+        id: 31,
+        note: "horned faces",
+        period: "Jurassic–Cretaceous",
+      },
     ],
   },
 ];
