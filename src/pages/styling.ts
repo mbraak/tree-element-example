@@ -51,9 +51,18 @@ function addNoteAndCount(node: Node, li: HTMLElement): void {
   }
 
   if (node.isFolder()) {
+    // iterate walks the whole subtree, so this counts all descendants, not
+    // just the direct children.
+    let descendants = 0;
+
+    node.iterate(() => {
+      descendants += 1;
+      return true;
+    });
+
     const count = document.createElement("span");
     count.className = "count";
-    count.textContent = String(node.children.length);
+    count.textContent = String(descendants);
     title.after(count);
   }
 }
