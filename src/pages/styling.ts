@@ -42,7 +42,15 @@ function addNoteAndCount(node: Node, li: HTMLElement): void {
   }
 
   // Extra keys in the node data end up as properties on the node, typed as
-  // `unknown`.
+  // `unknown`. Each element is inserted right after the title, so add them
+  // in reverse order: period, note, count.
+  if (typeof node.period === "string") {
+    const period = document.createElement("span");
+    period.className = "period";
+    period.textContent = node.period;
+    title.after(period);
+  }
+
   if (typeof node.note === "string") {
     const note = document.createElement("span");
     note.className = "note";

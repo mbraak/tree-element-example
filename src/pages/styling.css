@@ -107,6 +107,16 @@
   color: var(--fancy-muted);
 }
 
-.fancy li.tree-element-selected > .tree-element-element .note {
+.fancy .period {
+  font-size: 11px;
+  line-height: 1;
+  padding: 2px 6px;
+  border: 1px solid currentcolor;
+  border-radius: 999px;
+  color: var(--fancy-muted);
+}
+
+.fancy li.tree-element-selected > .tree-element-element .note,
+.fancy li.tree-element-selected > .tree-element-element .period {
   color: var(--fancy-selected-muted);
 }
