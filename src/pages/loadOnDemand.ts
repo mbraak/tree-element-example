@@ -1,6 +1,4 @@
 import TreeElement from "tree-element";
-import "tree-element/tree_element.css";
-import "../style.css";
 
 import { byId } from "../dom";
 import { logEvents } from "../eventLog";

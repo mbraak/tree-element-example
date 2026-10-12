@@ -1,8 +1,5 @@
 import TreeElement from "tree-element";
 import type { Node, SavedState } from "tree-element";
-import "tree-element/tree_element.css";
-import "../style.css";
-import "./styling.css";
 
 import { dinosaurs } from "../data";
 import { byId } from "../dom";

@@ -1,3 +1,4 @@
+import { basename } from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig, type Connect, type Plugin } from "vite";
 
@@ -64,23 +65,64 @@ function fakeNodesApi(): Plugin {
   };
 }
 
-const page = (name: string) => fileURLToPath(new URL(`${name}.html`, import.meta.url));
+/**
+ * The pages of the example, in the order of the nav. Each one is an html file
+ * in the root, and an entry of the build.
+ */
+const pages = [
+  { name: "index", title: "Basics" },
+  { name: "drag-and-drop", title: "Drag and drop" },
+  { name: "load-on-demand", title: "Load on demand" },
+  { name: "save-state", title: "Save state" },
+  { name: "styling", title: "Styling" },
+  { name: "accessibility", title: "Accessibility" },
+];
+
+const pageUrl = (name: string) => (name === "index" ? "./" : `./${name}.html`);
+
+/**
+ * Replaces the `<!-- header -->` comment in each page with the header, so that
+ * the pages share it. The link to the current page gets `aria-current`.
+ */
+function sharedHeader(): Plugin {
+  return {
+    name: "shared-header",
+    transformIndexHtml(html, ctx) {
+      const current = basename(ctx.filename, ".html");
+      const links = pages
+        .map(({ name, title }) => {
+          const ariaCurrent = name === current ? ' aria-current="page"' : "";
+          return `        <a href="${pageUrl(name)}"${ariaCurrent}>${title}</a>`;
+        })
+        .join("\n");
+
+      const header = `    <header>
+      <h1><a href="./">tree-element example</a></h1>
+      <nav>
+${links}
+      </nav>
+      <a class="repo-link" href="https://github.com/mbraak/tree-element-example">GitHub</a>
+    </header>`;
+
+      if (!html.includes("<!-- header -->")) {
+        throw new Error(`${ctx.filename} has no <!-- header --> comment`);
+      }
+
+      return html.replace("    <!-- header -->", header);
+    },
+  };
+}
 
 export default defineConfig({
   // Relative urls, so the build works from any path, such as
   // https://mbraak.github.io/tree-element-example/
   base: "./",
-  plugins: [fakeNodesApi()],
+  plugins: [fakeNodesApi(), sharedHeader()],
   build: {
     rollupOptions: {
-      input: {
-        index: page("index"),
-        "drag-and-drop": page("drag-and-drop"),
-        "load-on-demand": page("load-on-demand"),
-        "save-state": page("save-state"),
-        styling: page("styling"),
-        accessibility: page("accessibility"),
-      },
+      input: Object.fromEntries(
+        pages.map(({ name }) => [name, fileURLToPath(new URL(`${name}.html`, import.meta.url))]),
+      ),
     },
   },
 });
