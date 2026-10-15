@@ -16,6 +16,7 @@
   --fancy-selected-muted: #cfd8e0;
   --fancy-count-background: #e3e8ed;
   --fancy-count-color: #3e4c59;
+  --fancy-link: #1a5fb4;
 }
 
 /* A dark theme is a different set of values. The theme switch in the header
@@ -32,6 +33,7 @@
   --fancy-selected-muted: #d6e4ef;
   --fancy-count-background: #2a3a48;
   --fancy-count-color: #d0d9e1;
+  --fancy-link: #8cb8ff;
 }
 
 /* Every selector in tree_element.css is nested under ul.tree-element, so the
@@ -118,6 +120,12 @@
   color: var(--fancy-muted);
 }
 
+.fancy .wikipedia {
+  font-size: 13px;
+  color: var(--fancy-link);
+}
+
+.fancy li.tree-element-selected > .tree-element-element .wikipedia,
 .fancy li.tree-element-selected > .tree-element-element .note,
 .fancy li.tree-element-selected > .tree-element-element .period {
   color: var(--fancy-selected-muted);

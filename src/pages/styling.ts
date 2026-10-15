@@ -42,7 +42,24 @@ function addNoteAndCount(node: Node, li: HTMLElement): void {
 
   // Extra keys in the node data end up as properties on the node, typed as
   // `unknown`. Each element is inserted right after the title, so add them
-  // in reverse order: period, note, count.
+  // in reverse order: link, period, note, count.
+  if (typeof node.wikipedia === "string") {
+    const link = document.createElement("a");
+    link.className = "wikipedia";
+    link.href = `https://en.wikipedia.org/wiki/${encodeURIComponent(node.wikipedia)}`;
+    link.target = "_blank";
+    link.rel = "noopener";
+    link.textContent = "Wikipedia";
+
+    // The tree selects the node on a click anywhere in its row. Stop the
+    // click here so following the link doesn't also select the node.
+    link.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
+
+    title.after(link);
+  }
+
   if (typeof node.period === "string") {
     const period = document.createElement("span");
     period.className = "period";
