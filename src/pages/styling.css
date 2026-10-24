@@ -56,8 +56,11 @@
   border-right: 1px solid var(--fancy-guide);
 }
 
-/* Rows with a hover color and rounded corners. */
+/* Rows with a hover color and rounded corners. The default stylesheet makes
+   the row a block when the toggler is after the title (buttonLeft: false);
+   keep it a flexbox so the gap applies. */
 .fancy ul.tree-element .tree-element-element {
+  display: flex;
   align-items: center;
   gap: 6px;
   padding: 3px 8px;

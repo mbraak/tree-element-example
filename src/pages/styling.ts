@@ -34,15 +34,18 @@ const chevron = (direction: "down" | "left" | "right"): string => {
 // the node is refreshed. Build the markup from the node data every time.
 
 function addNoteAndCount(node: Node, li: HTMLElement): void {
-  const title = li.querySelector(".tree-element-title");
+  // The row holds the title and, for a folder, the toggler: before the title
+  // by default, after it with buttonLeft: false. Insert the extra markup after
+  // whichever comes last, so the toggler stays next to the title.
+  const last = li.querySelector(".tree-element-element")?.lastElementChild;
 
-  if (!title) {
+  if (!last) {
     return;
   }
 
   // Extra keys in the node data end up as properties on the node, typed as
-  // `unknown`. Each element is inserted right after the title, so add them
-  // in reverse order: link, period, note, count.
+  // `unknown`. Each element is inserted right after the title or toggler, so
+  // add them in reverse order: link, period, note, count.
   if (typeof node.wikipedia === "string") {
     const link = document.createElement("a");
     link.className = "wikipedia";
@@ -57,21 +60,21 @@ function addNoteAndCount(node: Node, li: HTMLElement): void {
       e.stopPropagation();
     });
 
-    title.after(link);
+    last.after(link);
   }
 
   if (typeof node.period === "string") {
     const period = document.createElement("span");
     period.className = "period";
     period.textContent = node.period;
-    title.after(period);
+    last.after(period);
   }
 
   if (typeof node.note === "string") {
     const note = document.createElement("span");
     note.className = "note";
     note.textContent = node.note;
-    title.after(note);
+    last.after(note);
   }
 
   if (node.isFolder()) {
@@ -87,7 +90,7 @@ function addNoteAndCount(node: Node, li: HTMLElement): void {
     const count = document.createElement("span");
     count.className = "count";
     count.textContent = String(descendants);
-    title.after(count);
+    last.after(count);
   }
 }
 
