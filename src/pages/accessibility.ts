@@ -15,14 +15,18 @@ const noKeyboard = byId<HTMLInputElement>("no-keyboard");
 // The tree renders the WAI-ARIA tree view pattern:
 //
 //   ul[role=tree], named by aria-labelledby or aria-label
-//     li[role=none] > div[role=none] > span[role=treeitem]
-//       aria-level, aria-selected, aria-expanded (folders only),
+//     li[role=treeitem]
+//       aria-level, aria-expanded (folders only),
+//       aria-selected: "true" on the selected node, absent on the others
+//       (with multiSelect, "false" on the others),
+//       aria-label: the text of the title,
 //       tabindex: 0 on the tab stop, -1 on the other nodes
-//     ul[role=group] for the children of a folder
+//       div[role=none] > span.tree-element-title
+//       ul[role=group] for the children of a folder
 //
-// The `li` and `div` have role=none, so screen readers skip them and see the
-// title span as the treeitem. A treeitem takes its name from its text: the
-// node name.
+// The group is inside the treeitem, so screen readers see the nesting. The
+// treeitem is named by aria-label, so the name is only the title and not
+// everything else in the row.
 
 const treeItems = (): HTMLElement[] => [
   ...element.querySelectorAll<HTMLElement>("[role=treeitem]"),
@@ -30,10 +34,12 @@ const treeItems = (): HTMLElement[] => [
 
 /** The treeitem of the folder that contains this treeitem, if any. */
 function parentItem(item: HTMLElement): HTMLElement | null {
-  const parentLi = item.closest("li")?.parentElement?.closest("li");
-
-  return parentLi?.querySelector(":scope > div > [role=treeitem]") ?? null;
+  return item.parentElement?.closest<HTMLElement>("[role=treeitem]") ?? null;
 }
+
+/** The accessible name of a treeitem. */
+const itemName = (item: HTMLElement): string =>
+  item.getAttribute("aria-label") ?? "";
 
 /**
  * Can a screen reader reach the item? The children of a closed folder can
@@ -115,6 +121,7 @@ const attributes = byId<HTMLDListElement>("attributes");
 
 const shownAttributes = [
   "role",
+  "aria-label",
   "aria-level",
   "aria-expanded",
   "aria-selected",
@@ -127,16 +134,15 @@ const shownAttributes = [
  * group themselves.
  */
 function describeItem(item: HTMLElement): string {
-  const li = item.closest("li");
-  const siblings = li?.parentElement ? [...li.parentElement.children] : [];
+  const siblings = item.parentElement ? [...item.parentElement.children] : [];
   const expanded = item.getAttribute("aria-expanded");
 
   return [
-    item.textContent,
+    itemName(item),
     "tree item",
     expanded === null ? null : expanded === "true" ? "expanded" : "collapsed",
     item.getAttribute("aria-selected") === "true" ? "selected" : null,
-    li ? `${siblings.indexOf(li) + 1} of ${siblings.length}` : null,
+    `${siblings.indexOf(item) + 1} of ${siblings.length}`,
     `level ${item.getAttribute("aria-level")}`,
   ]
     .filter(Boolean)
@@ -192,7 +198,7 @@ function showOutline(): void {
       const icon = expanded === null ? " " : expanded === "true" ? "▾" : "▸";
 
       const line = document.createElement("div");
-      line.textContent = `${"  ".repeat(level - 1)}${icon} ${item.textContent}`;
+      line.textContent = `${"  ".repeat(level - 1)}${icon} ${itemName(item)}`;
       line.classList.toggle(
         "selected",
         item.getAttribute("aria-selected") === "true",

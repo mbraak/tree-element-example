@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Multiple selection · tree-element example</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <!-- header -->
+    <main>
+      <p>
+        With <code>multiSelect</code>, a click adds a node to the selection, or
+        removes it when it is already selected. With the keyboard, the arrow
+        keys move the focus without changing the selection, and
+        <kbd>Space</kbd> adds the focused node or removes it.
+      </p>
+      <div class="layout">
+        <section class="panel">
+          <h2>Tree</h2>
+          <div id="tree" class="tree"></div>
+        </section>
+        <div>
+          <section class="panel">
+            <h2>Selection</h2>
+            <div class="toolbar">
+              <button id="select-theropods">Select all theropods</button>
+              <button id="clear">Clear selection</button>
+              <button id="remove">Remove selected</button>
+            </div>
+            <pre id="selected" class="output" style="height: 120px"></pre>
+          </section>
+          <section class="panel" style="margin-top: 16px">
+            <h2>Events</h2>
+            <div id="log" class="log"></div>
+          </section>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="/src/pages/multipleSelection.ts"></script>
+  </body>
+</html>

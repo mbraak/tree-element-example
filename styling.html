@@ -17,36 +17,31 @@
         tree, keeping its open and selected nodes. The dark theme in the header
         only changes the colors.
       </p>
-      <div class="layout">
-        <section class="panel">
-          <h2>Tree</h2>
-          <div id="tree" class="tree fancy"></div>
-        </section>
-        <section class="panel">
-          <h2>Options</h2>
-          <div
-            class="toolbar"
-            style="flex-direction: column; align-items: start"
+      <section class="panel options">
+        <h2>Options</h2>
+        <div class="toolbar">
+          <label
+            ><input id="rtl" type="checkbox" /> <code>rtl</code>: right to
+            left</label
           >
-            <label
-              ><input id="rtl" type="checkbox" /> <code>rtl</code>: right to
-              left</label
-            >
-            <label
-              ><input id="button-right" type="checkbox" />
-              <code>buttonLeft: false</code>: toggler after the title</label
-            >
-            <label
-              ><input id="no-slide" type="checkbox" />
-              <code>slide: false</code>: no animation</label
-            >
-            <label
-              ><input id="show-notes" type="checkbox" checked /> Show notes,
-              periods, counts and links (<code>onCreateLi</code>)</label
-            >
-          </div>
-        </section>
-      </div>
+          <label
+            ><input id="button-right" type="checkbox" />
+            <code>buttonLeft: false</code>: toggler after the title</label
+          >
+          <label
+            ><input id="no-slide" type="checkbox" /> <code>slide: false</code>:
+            no animation</label
+          >
+          <label
+            ><input id="show-notes" type="checkbox" checked /> Show notes,
+            periods, counts and links (<code>onCreateLi</code>)</label
+          >
+        </div>
+      </section>
+      <section class="panel">
+        <h2>Tree</h2>
+        <div id="tree" class="tree fancy"></div>
+      </section>
     </main>
     <script type="module" src="/src/pages/styling.ts"></script>
   </body>

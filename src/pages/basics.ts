@@ -22,6 +22,7 @@ logEvents(element, byId("log"), [
 ]);
 
 const tree = new TreeElement({
+  ariaLabel: "Dinosaurs",
   autoOpen: 0,
   data: dinosaurs,
   htmlElement: element,
