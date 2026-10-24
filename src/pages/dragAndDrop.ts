@@ -11,6 +11,7 @@ const log = byId("log");
 logEvents(element, log, ["tree.move", "tree.open"]);
 
 const tree = new TreeElement({
+  ariaLabel: "Dinosaurs",
   autoOpen: 1,
   data: dinosaurs,
   dragAndDrop: true,

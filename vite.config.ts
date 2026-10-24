@@ -77,6 +77,7 @@ const pages = [
   { name: "index", title: "Basics" },
   { name: "drag-and-drop", title: "Drag and drop" },
   { name: "load-on-demand", title: "Load on demand" },
+  { name: "multiple-selection", title: "Multiple selection" },
   { name: "save-state", title: "Save state" },
   { name: "styling", title: "Styling" },
   { name: "accessibility", title: "Accessibility" },

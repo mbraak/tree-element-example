@@ -10,6 +10,7 @@ const current = byId<HTMLPreElement>("current");
 const stored = byId<HTMLPreElement>("stored");
 
 const tree = new TreeElement({
+  ariaLabel: "Dinosaurs",
   data: dinosaurs,
   htmlElement: element,
   // `true` uses the key "tree". A string picks the key, which matters when

@@ -21,6 +21,7 @@ logEvents(element, byId("log"), [
 const apiUrl = (path: string): string => new URL(path, document.baseURI).href;
 
 const tree = new TreeElement({
+  ariaLabel: "Dinosaurs",
   // Called without a node for the initial load, and with the node that is
   // being opened for a subtree. The server marks nodes that have children
   // with `load_on_demand: true`; see vite.config.ts.

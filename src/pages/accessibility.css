@@ -1,12 +1,16 @@
 /* The accessibility page. */
 
-/* A visible focus ring on the focused node. The default stylesheet leaves the
-   focus style to the browser. */
-.a11y ul.tree-element .tree-element-title:focus {
+/* A more visible focus ring on the focused node. The treeitem is the li, which
+   also contains the children of the node, so draw the ring around the title. */
+.a11y ul.tree-element li[role="treeitem"]:focus {
   outline: none;
 }
 
-.a11y ul.tree-element .tree-element-title:focus-visible {
+.a11y
+  ul.tree-element
+  li[role="treeitem"]:focus-visible
+  > .tree-element-element
+  > .tree-element-title {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
   border-radius: 2px;

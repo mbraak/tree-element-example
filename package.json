@@ -14,7 +14,7 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
-    "tree-element": "^0.3.1"
+    "tree-element": "file:../tree-element"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

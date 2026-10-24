@@ -97,6 +97,7 @@ function createTree(state: null | SavedState): TreeElement {
   const isRtl = rtl.checked;
 
   const tree = new TreeElement({
+    ariaLabel: "Dinosaurs",
     autoOpen: 0,
     buttonLeft: !buttonRight.checked,
     closedIcon: chevron(isRtl ? "left" : "right"),
