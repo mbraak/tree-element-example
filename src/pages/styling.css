@@ -130,3 +130,13 @@
 .fancy li.tree-element-selected > .tree-element-element .period {
   color: var(--fancy-selected-muted);
 }
+
+/* The options sit above the tree, in a row, so the tree gets the full width. */
+.options {
+  margin-bottom: 24px;
+}
+
+.options .toolbar {
+  gap: 8px 24px;
+  margin-bottom: 0;
+}
