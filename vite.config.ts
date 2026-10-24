@@ -79,6 +79,7 @@ const pages = [
   { name: "load-on-demand", title: "Load on demand" },
   { name: "multiple-selection", title: "Multiple selection" },
   { name: "save-state", title: "Save state" },
+  { name: "options", title: "Options" },
   { name: "styling", title: "Styling" },
   { name: "accessibility", title: "Accessibility" },
 ];
