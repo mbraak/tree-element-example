@@ -1,0 +1,21 @@
+/* One panel per font size. The panels grow with the font size, so let the
+   grid fit as many as the width allows. */
+.font-sizes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+/* The trees are only as tall as their nodes. */
+.font-sizes .tree {
+  min-height: 0;
+}
+
+.options {
+  margin-bottom: 24px;
+}
+
+.options .toolbar {
+  margin-bottom: 0;
+}
