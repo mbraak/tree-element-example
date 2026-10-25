@@ -1,21 +1,25 @@
-/* One panel per font size. The panels grow with the font size, so let the
-   grid fit as many as the width allows. */
-.font-sizes {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px;
-  align-items: start;
-}
-
-/* The trees are only as tall as their nodes. */
-.font-sizes .tree {
-  min-height: 0;
-}
-
 .options {
   margin-bottom: 24px;
 }
 
 .options .toolbar {
+  gap: 8px 24px;
   margin-bottom: 0;
+}
+
+.options select {
+  font: inherit;
+}
+
+/* At a large font the tree can be wider than the page, on a phone. Then the
+   panel scrolls by itself instead of the page. */
+.tree-panel {
+  overflow-x: auto;
+}
+
+/* The tree is at least as wide as its nodes, so a tree that is too wide
+   overflows to the right, where the panel can scroll to. Without it, an rtl
+   tree overflows to the left, which can't be reached. */
+.tree-panel .tree {
+  min-width: max-content;
 }

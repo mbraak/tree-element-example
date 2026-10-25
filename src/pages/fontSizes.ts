@@ -4,25 +4,29 @@ import type { SavedState } from "tree-element";
 import { dinosaurs } from "../data";
 import { byId } from "../dom";
 
-const container = byId("trees");
+const element = byId("tree");
+const fontSize = byId<HTMLSelectElement>("font-size");
 const rtl = byId<HTMLInputElement>("rtl");
 
-// The font sizes to compare. Up to 16px the toggler is 24px wide; above that
-// it grows with the font.
-const fontSizes = [12, 16, 20, 24, 30, 36, 48];
-
-// ---- One tree per font size ------------------------------------------------
+// ---- Font size -------------------------------------------------------------
 //
-// The tree takes the font size of its element, so a font-size on the element
-// is all it takes. Nothing in the options depends on it.
+// The tree takes the font size of its element, so setting it there is all it
+// takes; the tree doesn't need to be recreated. Up to 16px the toggler is 24px
+// wide; above that it grows with the font.
 
-function createTree(
-  element: HTMLElement,
-  size: number,
-  state: null | SavedState,
-): TreeElement {
+function applyFontSize(): void {
+  element.style.fontSize = fontSize.value;
+}
+
+// The browser can keep the selected option after a reload, so apply it now.
+applyFontSize();
+fontSize.addEventListener("change", applyFontSize);
+
+// ---- Creating the tree -----------------------------------------------------
+
+function createTree(state: null | SavedState): TreeElement {
   const tree = new TreeElement({
-    ariaLabel: `Dinosaurs at ${size}px`,
+    ariaLabel: "Dinosaurs",
     // Open two levels, so there are lines inside lines.
     autoOpen: 1,
     data: dinosaurs,
@@ -37,30 +41,13 @@ function createTree(
   return tree;
 }
 
-const panels = fontSizes.map((size) => {
-  const panel = document.createElement("section");
-  panel.className = "panel";
+let tree = createTree(null);
 
-  const heading = document.createElement("h2");
-  heading.textContent = `${size}px`;
-
-  const element = document.createElement("div");
-  element.className = "tree";
-  element.style.fontSize = `${size}px`;
-
-  panel.append(heading, element);
-  container.append(panel);
-
-  return { element, size, tree: createTree(element, size, null) };
-});
-
-// rtl can only be set in the constructor, so recreate the trees. getState and
+// rtl can only be set in the constructor, so recreate the tree. getState and
 // setState carry the open and selected nodes over.
 rtl.addEventListener("change", () => {
-  for (const panel of panels) {
-    const state = panel.tree.getState();
+  const state = tree.getState();
 
-    panel.tree.deinit();
-    panel.tree = createTree(panel.element, panel.size, state);
-  }
+  tree.deinit();
+  tree = createTree(state);
 });

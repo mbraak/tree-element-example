@@ -11,21 +11,36 @@
     <!-- header -->
     <main>
       <p>
-        The same tree at different font sizes, with the default stylesheet. The
-        toggler is at least 24px wide, and above a 16px font it grows with the
-        font, so the space between the toggler and the title grows along.
-        Compare the vertical lines with the togglers above them.
+        A tree at different font sizes, with the default stylesheet. The toggler
+        is at least 24px wide, and above a 16px font it grows with the font, so
+        the space between the toggler and the title grows along. Compare the
+        vertical lines with the togglers above them.
       </p>
       <section class="panel options">
         <h2>Options</h2>
         <div class="toolbar">
+          <label
+            >Font size:
+            <select id="font-size">
+              <option>12px</option>
+              <option selected>16px</option>
+              <option>20px</option>
+              <option>24px</option>
+              <option>30px</option>
+              <option>36px</option>
+              <option>48px</option>
+            </select></label
+          >
           <label
             ><input id="rtl" type="checkbox" /> <code>rtl</code>: right to
             left</label
           >
         </div>
       </section>
-      <div id="trees" class="font-sizes"></div>
+      <section class="panel tree-panel">
+        <h2>Tree</h2>
+        <div id="tree" class="tree"></div>
+      </section>
     </main>
     <script type="module" src="/src/pages/fontSizes.ts"></script>
   </body>
