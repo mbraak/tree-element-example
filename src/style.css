@@ -18,6 +18,8 @@
   --notice-background: #fff7e0;
   --notice-border: #f0d78c;
   --shadow: rgba(0, 0, 0, 0.12);
+
+  --tree-element-line-color: #e3e8ed;
 }
 
 /* The dark theme. The theme switch in the header sets data-theme on <html>,
@@ -47,6 +49,7 @@
   --tree-element-drop-hint-color: #6ea8ff;
   --tree-element-dragging-color: #10181f;
   --tree-element-dragging-background: #e4e9ee;
+  --tree-element-line-color: #2a3a48;
 }
 
 * {
