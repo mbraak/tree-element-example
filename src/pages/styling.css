@@ -42,19 +42,19 @@
 }
 
 /* Wider indentation. The tree lines are the border of these lists; their
-   color is --tree-element-line-color in style.css. The toggler is 24px wide
-   and the row has 8px padding, so the center of the toggler is 20px from the
-   edge: the margin puts the line under it, the padding adds the rest of the
-   indentation. */
+   color is --tree-element-line-color in style.css. The row has 8px padding,
+   so the center of the toggler is 8px plus half of
+   --tree-element-toggler-size from the edge: the margin puts the line under
+   it, the padding adds the rest of the indentation. */
 .fancy ul.tree-element ul.tree-element-common {
-  margin-left: 20px;
+  margin-left: calc(8px + var(--tree-element-toggler-size) / 2);
   padding-left: 2px;
 }
 
 .fancy ul.tree-element.tree-element-rtl ul.tree-element-common {
   margin-left: 0;
   padding-left: 0;
-  margin-right: 20px;
+  margin-right: calc(8px + var(--tree-element-toggler-size) / 2);
   padding-right: 2px;
 }
 
@@ -88,13 +88,13 @@
   display: block;
 }
 
-/* A leaf has no toggler. Indent its title by the toggler (24px) plus the gap
-   (6px), so it lines up with the folder titles. margin-inline-start is the
-   right margin in rtl. */
+/* A leaf has no toggler. Indent its title by the toggler plus the gap (6px),
+   so it lines up with the folder titles. margin-inline-start is the right
+   margin in rtl. */
 .fancy
   ul.tree-element
   .tree-element-title-button-left:not(.tree-element-title-folder) {
-  margin-inline-start: 30px;
+  margin-inline-start: calc(var(--tree-element-toggler-size) + 6px);
 }
 
 .fancy ul.tree-element .tree-element-title-folder {
