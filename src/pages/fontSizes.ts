@@ -7,8 +7,8 @@ import { byId } from "../dom";
 const container = byId("trees");
 const rtl = byId<HTMLInputElement>("rtl");
 
-// The font sizes to compare. Up to 30px the icon (0.8em) fits in the 24px
-// toggler; above that the toggler gets wider.
+// The font sizes to compare. Up to 16px the toggler is 24px wide; above that
+// it grows with the font.
 const fontSizes = [12, 16, 20, 24, 30, 36, 48];
 
 // ---- One tree per font size ------------------------------------------------
