@@ -81,6 +81,7 @@ const pages = [
   { name: "save-state", title: "Save state" },
   { name: "options", title: "Options" },
   { name: "styling", title: "Styling" },
+  { name: "font-sizes", title: "Font sizes" },
   { name: "accessibility", title: "Accessibility" },
 ];
 

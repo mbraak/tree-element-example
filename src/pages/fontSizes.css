@@ -1,0 +1,25 @@
+.options {
+  margin-bottom: 24px;
+}
+
+.options .toolbar {
+  gap: 8px 24px;
+  margin-bottom: 0;
+}
+
+.options select {
+  font: inherit;
+}
+
+/* At a large font the tree can be wider than the page, on a phone. Then the
+   panel scrolls by itself instead of the page. */
+.tree-panel {
+  overflow-x: auto;
+}
+
+/* The tree is at least as wide as its nodes, so a tree that is too wide
+   overflows to the right, where the panel can scroll to. Without it, an rtl
+   tree overflows to the left, which can't be reached. */
+.tree-panel .tree {
+  min-width: max-content;
+}
