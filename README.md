@@ -3,7 +3,7 @@
 A small Vite project showing how to use
 [tree-element](https://github.com/mbraak/tree-element), a tree widget in plain
 javascript: loading data, events, the api, drag and drop, loading on demand,
-saving state, styling and accessibility.
+saving state, changing options, styling and accessibility.
 
 Documentation for tree-element: <https://mbraak.github.io/tree-element/>
 
@@ -25,6 +25,7 @@ Then open <http://localhost:5173/>.
 | `/load-on-demand.html`     | Fetching the top level from a url and each folder when it is opened, a loading indicator drawn from `aria-busy`, and a folder and a request that fail                                                                                                                                                                             |
 | `/multiple-selection.html` | `multiSelect`: a click or `Space` adds a node to the selection, or removes it, and the arrow keys only move the focus. `getSelectedNodes`, `addToSelection`, clearing the selection with `selectNode(null)`                                                                                                                       |
 | `/save-state.html`         | `saveState`: the open and selected nodes survive a reload. `getState` and `setState`                                                                                                                                                                                                                                              |
+| `/options.html`            | Changing `dragAndDrop`, `keyboardSupport`, `multiSelect` and `selectable` with `setOption`, without recreating the tree                                                                                                                                                                                                           |
 | `/styling.html`            | Custom folder icons, extra markup per node with `onCreateLi`, colors from css custom properties with a dark theme, css overrides, `rtl` and `buttonLeft`                                                                                                                                                                          |
 | `/accessibility.html`      | The aria roles and states the tree renders, naming the tree with `ariaLabelledBy`, the single tab stop, keyboard navigation, opening a node with `Enter`, form fields that keep their own keys, `tabIndex` and `keyboardSupport`, no animation when the user prefers reduced motion, and a live region for changes made from code |
 

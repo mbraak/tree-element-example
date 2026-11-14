@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Options · tree-element example</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <!-- header -->
+    <main>
+      <p>
+        Some options can be changed after the tree is created, with
+        <code>setOption</code>. The tree is not recreated, so the open nodes,
+        the selection and the focus stay as they are. Turn the options below on
+        and off, and try the tree with the mouse and the keyboard.
+      </p>
+      <section class="panel options">
+        <h2>Options</h2>
+        <div class="toolbar">
+          <label
+            ><input id="dragAndDrop" type="checkbox" />
+            <code>dragAndDrop</code>: move nodes by dragging them</label
+          >
+          <label
+            ><input id="keyboardSupport" type="checkbox" checked />
+            <code>keyboardSupport</code>: navigate with the arrow keys</label
+          >
+          <label
+            ><input id="multiSelect" type="checkbox" />
+            <code>multiSelect</code>: a click adds to the selection</label
+          >
+          <label
+            ><input id="selectable" type="checkbox" checked />
+            <code>selectable</code>: allow selecting nodes</label
+          >
+        </div>
+      </section>
+      <div class="layout" style="margin-top: 16px">
+        <section class="panel">
+          <h2>Tree</h2>
+          <div id="tree" class="tree"></div>
+        </section>
+        <div>
+          <section class="panel">
+            <h2>Selection</h2>
+            <pre id="selected" class="output" style="height: 120px"></pre>
+          </section>
+          <section class="panel" style="margin-top: 16px">
+            <h2>Events</h2>
+            <div id="log" class="log"></div>
+          </section>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="/src/pages/options.ts"></script>
+  </body>
+</html>
